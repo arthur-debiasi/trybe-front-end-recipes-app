@@ -1,0 +1,87 @@
+#+title: Recipes App Documentation
+#+AUTHOR: Fernando Costa, Arthur Debiasi, Caio Oliveira, Lilian Alves, Sérgio Ruza
+
+Repositório do Projeto: [[https://github.com/tryber/sd-024-b-project-recipes-app][Trybe - Recipes App]]
+Figma do Projeto: [[https://www.figma.com/file/9WXNFMewKRBC5ZawU1EXYG/%5BProjeto%5D%5BFrontend%5D-Recipes-App][Figma]]
+
+* APIs de comidas e bebidas
+** The Meal DB
+** The Drinks DB
+
+* Convenções de desenvolvimento sobre:
+** Rotas
+As rotas a serem utilizadas na aplicação devem ser as seguintes:
+
+Tela de login: /;
+Tela principal de receitas de comidas: /meals;
+Tela principal de receitas de bebidas: /drinks;
+Tela de detalhes de uma receita de comida: /meals/:id-da-receita;
+Tela de detalhes de uma receita de bebida: /drinks/:id-da-receita;
+Tela de receita em progresso de comida: /meals/:id-da-receita/in-progress;
+Tela de receita em progresso de bebida: /drinks/:id-da-receita/in-progress;
+Tela de perfil: /profile;
+Tela de receitas feitas: /done-recipes;
+Tela de receitas favoritas: /favorite-recipes.
+** localStorage
+O uso de localStorage é necessário para que as informações não se percam caso a pessoa atualize a página. O correto é usar os valores para iniciar sua store ou seu context.
+
+No localStorage do navegador:
+- a chave user deve conter a seguinte estrutura:
+#+begin_src js
+{
+    email: email-da-pessoa
+}
+#+end_src
+- a chave doneRecipes deve conter a seguinte estrutura:
+#+begin_src js
+[{
+    id: id-da-receita,
+    type: meal-ou-drink,
+    nationality: nacionalidade-da-receita-ou-texto-vazio,
+    category: categoria-da-receita-ou-texto-vazio,
+    alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
+    name: nome-da-receita,
+    image: imagem-da-receita,
+    doneDate: quando-a-receita-foi-concluida,
+    tags: array-de-tags-da-receita-ou-array-vazio
+}]
+#+end_src
+- a chave favoriteRecipes deve conter a seguinte estrutura:
+#+begin_src js
+
+[{
+    id: id-da-receita,
+    type: meal-ou-drink,
+    nationality: nacionalidade-da-receita-ou-texto-vazio,
+    category: categoria-da-receita-ou-texto-vazio,
+    alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
+    name: nome-da-receita,
+    image: imagem-da-receita
+}]
+#+end_src
+- a chave inProgressRecipes deve conter a seguinte estrutura:
+#+begin_src js
+
+{
+    drinks: {
+        id-da-bebida: [lista-de-ingredientes-utilizados],
+        ...
+    },
+    meals: {
+        id-da-comida: [lista-de-ingredientes-utilizados],
+        ...
+    }
+}
+#+end_src
+
+Observações técnicas
+
+id-da-bebida e id-da-comida representam o ID de uma bebida e comida, respectivamente, e cada item da lista de ingredientes da respectiva receita deve ser representado apenas pelo número do ingrediente no formato numérico.
+** Ícones
+** Biblioteca clipboard-copy
+
+* Gerenciamento de Estado
+** Context API
+
+* Estilização
+** Após a aprovação no projeto
