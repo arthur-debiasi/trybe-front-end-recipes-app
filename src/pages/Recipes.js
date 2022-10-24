@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import Header from '../components/Header';
 
-function Recipes() {
+function Recipes(props) {
+  useEffect(() => {
+    const { history } = props
+    console.log(history.location)
+  })
   return (
-    <div>Recipes</div>
+    <div>
+      <Header history={history} />
+    </div>
   );
 }
 
