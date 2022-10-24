@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Header from '../components/Header';
 
-function Recipes(props) {
-  useEffect(() => {
-    const { history } = props
-    console.log(history.location)
-  })
+function Recipes({ history }) {
   return (
     <div>
-      <Header history={history} />
+      <Header history={ history } />
     </div>
   );
 }
+
+Recipes.propTypes = {
+  history: PropTypes.shape.isRequired,
+};
 
 export default Recipes;
