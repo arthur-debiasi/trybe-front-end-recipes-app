@@ -1,20 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function Profile(props) {
   const getUser = JSON.parse(localStorage.getItem('user'));
-
+  const { history } = props;
   const handleLogout = () => {
-    const { history } = props;
     localStorage.setItem('user', null);
     history.push('/');
   };
 
   return (
     <div>
-      Profile
+      <Header history={ history } />
       <p
         data-testid="profile-email"
       >
@@ -43,5 +43,6 @@ Profile.propTypes = {
     push: PropTypes.func,
   }),
 }.isRequired;
+
 
 export default Profile;

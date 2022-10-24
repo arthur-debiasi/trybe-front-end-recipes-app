@@ -5,7 +5,6 @@ import App from '../App';
 import renderWithRouter from './helpers/renderWith';
 
 test('Farewell, front-end', () => {
-  // Este arquivo pode ser modificado ou deletado sem problemas
   renderWithRouter(<App />);
   const email = screen.getByTestId('email-input');
   const password = screen.getByTestId('password-input');
