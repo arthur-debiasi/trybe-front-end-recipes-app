@@ -1,7 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import MyContext from '../context/MyContext';
 
 export default function Login() {
+  const [redirect, setRedirect] = useState(false);
+
   const {
     handleChangeEmail,
     handleChangePassWord,
@@ -13,12 +16,13 @@ export default function Login() {
     const regex = /\S+@\S+\.\S+/;
     const passLength = 7;
     const verifyEmail = email && regex.test(email);
-    const verifyName = password.length === passLength;
+    const verifyName = password.length >= passLength;
     return (verifyEmail && verifyName);
   };
-  console.log(handleDisableBtn());
+
   const onClickBtnLogin = () => {
-    // aaaa
+    localStorage.setItem('user', JSON.stringify({ email }));
+    setRedirect(true);
   };
 
   return (
@@ -44,6 +48,10 @@ export default function Login() {
       >
         Enter
       </button>
+      {
+        redirect && <Redirect to="/meals" />
+
+      }
     </form>
   );
 }
