@@ -5,6 +5,8 @@ import MyContext from './MyContext';
 export default function MyProvider({ children }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [inputSearch, setInputSearch] = useState('');
+  const [radioSearch, setRadioSearch] = useState('');
 
   const handleChangeEmail = ({ target }) => {
     setEmail(target.value);
@@ -18,7 +20,11 @@ export default function MyProvider({ children }) {
     handleChangePassWord,
     email,
     password,
-  }), [email, password]);
+    setInputSearch,
+    inputSearch,
+    setRadioSearch,
+    radioSearch,
+  }), [email, inputSearch, password, radioSearch]);
 
   return (
     <MyContext.Provider value={ contextValue }>

@@ -1,11 +1,14 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
+import MyContext from '../context/MyContext';
 
 function Header(props) {
   const [visibleInput, setVisibleInput] = useState(false);
+  const { setInputSearch } = useContext(MyContext);
   const { history } = props;
   const title = history.location.pathname;
   const trueFalse = () => {
@@ -33,7 +36,10 @@ function Header(props) {
   };
   const finalTitle = temTraco();
 
-  console.log(visibleInput);
+  const onInputSearchChenage = ({ target }) => {
+    setInputSearch(target.value);
+  };
+
   return (
     <div>
       <h1 data-testid="page-title">{finalTitle}</h1>
@@ -57,13 +63,16 @@ function Header(props) {
       }
       {
         visibleInput && <input
+          onChange={ onInputSearchChenage }
           data-testid="search-input"
           type="text"
           placeholder="Search"
         />
       }
 
+      <SearchBar />
     </div>
+
   );
 }
 
