@@ -91,6 +91,21 @@ describe('Testes do SearchBar', () => {
     expect(recipeTitle).toBeInTheDocument()
     expect(history.location.pathname).toBe('/meals/52871')
   });
+  it('01 - Testa First Letter SerchBar Meals', async () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/meals'));
+    const searchButton = screen.getByTestId('search-top-btn')
+    const letterLink = screen.getByTestId('first-letter-search-radio');
+    const bttSearch2 = screen.getByTestId('exec-search-btn')
+    userEvent.click(searchButton)
+    const searchInput = screen.getByTestId('search-input')
+    userEvent.type(searchInput, 'a')
+    userEvent.click(letterLink);
+    userEvent.click(bttSearch2)
+    expect(searchButton).toBeInTheDocument()
+    expect(letterLink).toBeInTheDocument()
+    expect(bttSearch2).toBeInTheDocument()
+  });
   it('01 - Testa First Letter SerchBar Drinks', async () => {
     global.alert = jest.fn()
     global.fetch = jest.fn().mockResolvedValue({
