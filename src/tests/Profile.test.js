@@ -41,7 +41,7 @@ describe('Testes do Profile', () => {
     const logoutBtn = screen.getByTestId('profile-logout-btn');
     userEvent.click(logoutBtn);
 
-    expect(localStorage.getItem('user')).toBe('null');
+    expect(localStorage.getItem('user')).toEqual(null);
     expect(history.location.pathname).toBe('/');
   });
 });

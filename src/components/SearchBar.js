@@ -1,21 +1,57 @@
+import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import MyContext from '../context/MyContext';
 import { fetchIngredient, fetchByFirstLetter, fetchByName } from '../services/APIfetch';
 
-function SearchBar() {
-  const { setRadioSearch, radioSearch, inputSearch } = useContext(MyContext);
+function SearchBar({ history }) {
+  const { setRadioSearch, radioSearch, inputSearch, setApiData } = useContext(MyContext);
   const radioChangeSearch = ({ target }) => {
     setRadioSearch(target.value);
   };
 
-  const searchButtonAPI = () => {
+  const type = history.location.pathname.substring(1);
+  const idType = type === 'drinks' ? 'idDrink' : 'idMeal';
+  console.log(idType);
+  const searchButtonAPI = async () => {
     switch (radioSearch) {
-    case 'ingredient': return fetchIngredient(inputSearch);
-    case 'name': return fetchByName(inputSearch);
-    default: return fetchByFirstLetter(inputSearch);
+    case 'ingredient': {
+      const response = await fetchIngredient(inputSearch, type);
+      if (response.length === 1) {
+        history.push(
+          `/${type}/${response[0][idType]}`,
+        );
+      } else {
+        setApiData(response);
+      }
+    }
+      break;
+    case 'name': {
+      const response = await fetchByName(inputSearch, type);
+      if (response.length === 1) {
+        history.push(
+          `/${type}/${response[0][idType]}`,
+        );
+      } else {
+        setApiData(response);
+      }
+    }
+      break;
+    default: {
+      const response = await fetchByFirstLetter(inputSearch, type);
+      if (inputSearch.length !== 1) {
+        global.alert('Your search must have only 1 (one) character');
+        break;
+      }
+      if (response.length === 1) {
+        history.push(
+          `/${type}/${response[0][idType]}`,
+        );
+      } else {
+        setApiData(response);
+      }
+    }
     }
   };
-  console.log(searchButtonAPI);
   return (
 
     <div>
@@ -54,5 +90,16 @@ function SearchBar() {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.shape({
+        substring: PropTypes.func,
+      }),
+    }),
+    push: PropTypes.func,
+  }),
+}.isRequired;
 
 export default SearchBar;
