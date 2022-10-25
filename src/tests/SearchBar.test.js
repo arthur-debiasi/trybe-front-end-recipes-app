@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import App from '../App';
@@ -112,10 +112,6 @@ describe('Testes do SearchBar', () => {
     expect(bttSearch2).toBeInTheDocument();
   });
   it('01 - Testa First Letter SerchBar Drinks', async () => {
-    // window.alert = jest.fn()
-    // global.fetch = jest.fn().mockResolvedValue({
-    // json: jest.fn().mockResolvedValue(oneDrink)
-    // })
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/drinks'));
     const searchButton = screen.getByTestId(searchString);
