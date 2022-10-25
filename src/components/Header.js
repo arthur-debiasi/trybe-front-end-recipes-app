@@ -77,7 +77,7 @@ function Header(props) {
 }
 
 Header.propTypes = {
-  history: PropTypes.shape.isRequired,
-};
+  history: PropTypes.shape,
+}.isRequired;
 
 export default Header;

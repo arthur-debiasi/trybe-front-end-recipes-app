@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { DisplayRecipe } from '../components/DisplayRecipe';
+import DisplayRecipe from '../components/DisplayRecipe';
 /*
  As receitas devem ser carregadas ao inicializar a página.
  Caso as receitas sejam de comidas, deve-se carregar as 12 primeiras receitas obtidas através do endpoint `https://www.themealdb.com/api/json/v1/1/search.php?s=`
