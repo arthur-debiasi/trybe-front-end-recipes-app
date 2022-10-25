@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import { DisplayRecipe } from '../components/DisplayRecipe';
+import React, { useEffect } from 'react';
 /*
  As receitas devem ser carregadas ao inicializar a página.
+ useEffect(() => {
+    const { location: { pathname } } = history
+    const type = pathname.substring(1);
+    if (pathname === '/meals') {
+      fetchByFirstLetter('', type)
+
  Caso as receitas sejam de comidas, deve-se carregar as 12 primeiras receitas obtidas através do endpoint `https://www.themealdb.com/api/json/v1/1/search.php?s=`
  Caso as receitas sejam de bebidas, deve-se carregar as 12 primeiras receitas obtidas através do endpoint `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`
  O card deve ter o `data-testid="${index}-recipe-card"`
@@ -17,18 +20,9 @@ import { DisplayRecipe } from '../components/DisplayRecipe';
 - Caso as receitas sejam de bebida, deve-se carregar as 12 primeiras receitas
  */
 
-function Recipes({ history }) {
+function DisplayRecipe({ history }) {
   return (
-    <div>
-      <Header history={ history } />
-      <DisplayRecipe history={ history } />
-      <Footer />
-    </div>
-  );
+    <div>DisplayRecipe</div>
+  )
 }
-
-Recipes.propTypes = {
-  history: PropTypes.shape.isRequired,
-};
-
-export default Recipes;
+exṕort DisplayRecipe;
