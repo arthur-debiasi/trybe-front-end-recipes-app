@@ -8,7 +8,10 @@ function Profile(props) {
   const getUser = JSON.parse(localStorage.getItem('user'));
   const { history } = props;
   const handleLogout = () => {
-    localStorage.setItem('user', null);
+    localStorage.removeItem('user');
+    localStorage.removeItem('doneRecipes');
+    localStorage.removeItem('favoriteRecipes');
+    localStorage.removeItem('inProgressRecipes');
     history.push('/');
   };
 
