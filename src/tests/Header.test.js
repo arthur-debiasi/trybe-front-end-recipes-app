@@ -35,7 +35,10 @@ describe('Header test', () => {
   it('Meals test', () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/meals'));
-    const btnSearch = screen.getByRole('button', { name: /busca/i });
+    const btnSearch = screen.getByRole('img', { name: /busca/i });
+    const radio = screen.getAllByTestId('ingredient-search-radio');
+    expect(radio).toBeDefined();
+    userEvent.click(radio[0]);
     userEvent.click(btnSearch);
     expect(screen.getByTestId('search-input')).toBeDefined();
   });

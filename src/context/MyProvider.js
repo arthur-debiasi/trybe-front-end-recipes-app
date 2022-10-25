@@ -7,6 +7,7 @@ export default function MyProvider({ children }) {
   const [password, setPassword] = useState('');
   const [inputSearch, setInputSearch] = useState('');
   const [radioSearch, setRadioSearch] = useState('');
+  const [apiData, setApiData] = useState([]);
 
   const handleChangeEmail = ({ target }) => {
     setEmail(target.value);
@@ -24,7 +25,9 @@ export default function MyProvider({ children }) {
     inputSearch,
     setRadioSearch,
     radioSearch,
-  }), [email, inputSearch, password, radioSearch]);
+    apiData,
+    setApiData,
+  }), [apiData, email, inputSearch, password, radioSearch]);
 
   return (
     <MyContext.Provider value={ contextValue }>

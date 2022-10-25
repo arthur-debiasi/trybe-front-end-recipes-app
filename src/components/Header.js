@@ -70,7 +70,7 @@ function Header(props) {
         />
       }
 
-      <SearchBar />
+      <SearchBar history={ history } />
     </div>
 
   );
