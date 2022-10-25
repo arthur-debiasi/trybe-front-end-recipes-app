@@ -6,7 +6,6 @@ export default function CardRecipes({ history }) {
   const doze = 12;
   const { apiData } = useContext(MyContext);
   const arrayRecipes = apiData.slice(0, doze);
-  console.log(arrayRecipes);
 
   const type = history.location.pathname.substring(1);
   const info = type === 'drinks' ? 'Drink' : 'Meal';

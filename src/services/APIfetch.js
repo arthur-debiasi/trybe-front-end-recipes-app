@@ -3,6 +3,7 @@ export const fetchIngredient = async (ingredient, type) => {
   try {
     const response = await fetch(`https://www.${urlType}.com/api/json/v1/1/filter.php?i=${ingredient}`);
     const result = await response.json();
+    console.log(result)
     return result[type];
   } catch (err) {
     console.log(`${err.name}:${err.message}`);
