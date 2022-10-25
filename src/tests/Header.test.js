@@ -1,5 +1,6 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import App from '../App';
 import renderWithRouter from './helpers/renderWith';
@@ -29,5 +30,13 @@ describe('Header test', () => {
     act(() => history.push('/profile'));
     const linkElement = screen.getByTestId(pageTest);
     expect(linkElement).toBeInTheDocument();
+  });
+
+  it('Meals test', () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/meals'));
+    const btnSearch = screen.getByRole('button', { name: /busca/i });
+    userEvent.click(btnSearch);
+    expect(screen.getByTestId('search-input')).toBeDefined();
   });
 });

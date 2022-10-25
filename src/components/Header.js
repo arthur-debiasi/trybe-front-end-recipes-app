@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 function Header(props) {
+  const [visibleInput, setVisibleInput] = useState(false);
   const { history } = props;
   const title = history.location.pathname;
   const trueFalse = () => {
@@ -31,6 +32,8 @@ function Header(props) {
     }
   };
   const finalTitle = temTraco();
+
+  console.log(visibleInput);
   return (
     <div>
       <h1 data-testid="page-title">{finalTitle}</h1>
@@ -42,8 +45,24 @@ function Header(props) {
         />
       </Link>
       {
-        trueFalse() && <img src={ searchIcon } data-testid="search-top-btn" alt="busca" />
+        trueFalse() && (
+          <button onClick={ () => setVisibleInput(!visibleInput) } type="button">
+            <img
+              src={ searchIcon }
+              data-testid="search-top-btn"
+              alt="busca"
+            />
+          </button>
+        )
       }
+      {
+        visibleInput && <input
+          data-testid="search-input"
+          type="text"
+          placeholder="Search"
+        />
+      }
+
     </div>
   );
 }

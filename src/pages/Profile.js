@@ -44,5 +44,4 @@ Profile.propTypes = {
   }),
 }.isRequired;
 
-
 export default Profile;
