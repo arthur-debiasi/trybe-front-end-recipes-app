@@ -11,6 +11,8 @@ describe('Testes do SearchBar', () => {
   const searchBtnString = 'search-input';
   const recipeString = 'recipe-details';
   const firstLetterString = 'first-letter-search-radio';
+  const nameSearchRadio = 'name-search-radio';
+
   it('01 - Testa Ingrediente SerchBar Meals', () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/meals'));
@@ -48,7 +50,7 @@ describe('Testes do SearchBar', () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/meals'));
     const searchButton = screen.getByTestId(searchString);
-    const nameLink = screen.getByTestId('name-search-radio');
+    const nameLink = screen.getByTestId(nameSearchRadio);
     const bttSearch2 = screen.getByTestId(btnString);
     userEvent.click(searchButton);
     const searchInput = screen.getByTestId(searchBtnString);
@@ -67,7 +69,7 @@ describe('Testes do SearchBar', () => {
     userEvent.click(searchButton);
     const searchInput = screen.getByTestId(searchBtnString);
     userEvent.type(searchInput, 'orangeade');
-    const nameLink = screen.getByTestId('name-search-radio');
+    const nameLink = screen.getByTestId(nameSearchRadio);
     const bttSearch2 = screen.getByTestId(btnString);
     expect(searchButton).toBeInTheDocument();
     expect(nameLink).toBeInTheDocument();
@@ -134,7 +136,7 @@ describe('Testes do SearchBar', () => {
     act(() => history.push('/meals'));
     const searchButton = screen.getByTestId(searchString);
     const bttSearch2 = screen.getByTestId(btnString);
-    const nameLink = screen.getByTestId('name-search-radio');
+    const nameLink = screen.getByTestId(nameSearchRadio);
     userEvent.click(searchButton);
     const searchInput = screen.getByTestId(searchBtnString);
     userEvent.type(searchInput, 'ovotz');
