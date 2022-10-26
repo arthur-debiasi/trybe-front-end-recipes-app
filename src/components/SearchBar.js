@@ -11,12 +11,14 @@ function SearchBar({ history }) {
 
   const type = history.location.pathname.substring(1);
   const idType = type === 'drinks' ? 'idDrink' : 'idMeal';
-  console.log(idType);
   const searchButtonAPI = async () => {
+    const messageAlert = 'Sorry, we haven\'t found any recipes for these filters.';
     switch (radioSearch) {
     case 'ingredient': {
       const response = await fetchIngredient(inputSearch, type);
-      if (response.length === 1) {
+      if (response === null) {
+        global.alert(messageAlert);
+      } else if (response.length === 1) {
         history.push(
           `/${type}/${response[0][idType]}`,
         );
@@ -27,7 +29,9 @@ function SearchBar({ history }) {
       break;
     case 'name': {
       const response = await fetchByName(inputSearch, type);
-      if (response.length === 1) {
+      if (response === null) {
+        global.alert(messageAlert);
+      } else if (response.length === 1) {
         history.push(
           `/${type}/${response[0][idType]}`,
         );
@@ -42,7 +46,9 @@ function SearchBar({ history }) {
         global.alert('Your search must have only 1 (one) character');
         break;
       }
-      if (response.length === 1) {
+      if (response === null) {
+        global.alert(messageAlert);
+      } else if (response.length === 1) {
         history.push(
           `/${type}/${response[0][idType]}`,
         );
