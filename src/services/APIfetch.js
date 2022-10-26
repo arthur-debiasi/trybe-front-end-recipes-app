@@ -50,12 +50,8 @@ export const fetchByCategory = async (type) => {
 };
 
 export const fetchDetais = async (id, type) => {
-  if (type === 'meals') {
-    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-    const data = await response.json();
-    return data;
-  }
-  const responseDrinks = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-  const dataDrinks = await responseDrinks.json();
-  return dataDrinks;
+  const urlType = type === 'meals' ? 'themealdb' : 'thecocktaildb';
+  const response = await fetch(`https://www.${urlType}.com/api/json/v1/1/lookup.php?i=${id}`);
+  const data = await response.json();
+  return data[type];
 };
