@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import MyContext from '../context/MyContext';
+import RecipeContext from '../context/RecipeContext';
 import { fetchIngredient, fetchByFirstLetter, fetchByName } from '../services/APIfetch';
 
 function SearchBar({ history }) {
-  const { setRadioSearch, radioSearch, inputSearch, setApiData } = useContext(MyContext);
+  const { setRadioSearch, radioSearch, inputSearch } = useContext(MyContext);
+  const { setApiData } = useContext(RecipeContext);
   const radioChangeSearch = ({ target }) => {
     setRadioSearch(target.value);
   };

@@ -55,3 +55,10 @@ export const fetchDetais = async (id, type) => {
   const data = await response.json();
   return data[type];
 };
+
+export const fetchRecipesByCategory = async (type, category) => {
+  const urlType = type === 'meals' ? 'themealdb' : 'thecocktaildb';
+  const response = await fetch(`https://www.${urlType}.com/api/json/v1/1/filter.php?c=${category}`);
+  const data = await response.json();
+  return data[type];
+};
