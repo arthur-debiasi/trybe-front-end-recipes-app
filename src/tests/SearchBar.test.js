@@ -26,7 +26,7 @@ describe('Testes do SearchBar', () => {
     expect(ingredientLink).toBeInTheDocument();
     expect(bttSearch2).toBeInTheDocument();
   });
-  it('01 - Testa Ingrediente SerchBar Drinks', async () => {
+  it('02 - Testa Ingrediente SerchBar Drinks', async () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/drinks'));
     const searchButton = screen.getByTestId(searchString);
@@ -44,7 +44,7 @@ describe('Testes do SearchBar', () => {
     expect(recipeTitle).toBeInTheDocument();
     expect(history.location.pathname).toBe('/drinks/12738');
   });
-  it('01 - Testa Name SerchBar Meals', async () => {
+  it('03 - Testa Name SerchBar Meals', async () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/meals'));
     const searchButton = screen.getByTestId(searchString);
@@ -60,7 +60,7 @@ describe('Testes do SearchBar', () => {
     expect(bttSearch2).toBeInTheDocument();
     expect(history.location.pathname).toBe('/meals');
   });
-  it('01 - Testa Name SerchBar Drinks', async () => {
+  it('04 - Testa Name SerchBar Drinks', async () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/drinks'));
     const searchButton = screen.getByTestId(searchString);
@@ -78,7 +78,7 @@ describe('Testes do SearchBar', () => {
     expect(recipeTitle).toBeInTheDocument();
     expect(history.location.pathname).toBe('/drinks/12618');
   });
-  it('01 - Testa First Letter SerchBar Meals', async () => {
+  it('05 - Testa First Letter SerchBar Meals', async () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/meals'));
     const searchButton = screen.getByTestId(searchString);
@@ -96,7 +96,7 @@ describe('Testes do SearchBar', () => {
     expect(recipeTitle).toBeInTheDocument();
     expect(history.location.pathname).toBe('/meals/52871');
   });
-  it('01 - Testa First Letter SerchBar Meals', async () => {
+  it('06 - Testa First Letter SerchBar Meals', async () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/meals'));
     const searchButton = screen.getByTestId(searchString);
@@ -111,7 +111,7 @@ describe('Testes do SearchBar', () => {
     expect(letterLink).toBeInTheDocument();
     expect(bttSearch2).toBeInTheDocument();
   });
-  it('01 - Testa First Letter SerchBar Drinks', async () => {
+  it('07 - Testa First Letter SerchBar Drinks Alert', async () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/drinks'));
     const searchButton = screen.getByTestId(searchString);
@@ -124,9 +124,43 @@ describe('Testes do SearchBar', () => {
     userEvent.click(bttSearch2);
     const alertText = await screen.findByText('Your search must have only 1 (one) character', { exact: false });
     expect(alertText).toBeInTheDocument();
-    // expect(window.alert).toHaveBeenCalledTimes(1)
+    // expect(global.alert).toHaveBeenCalledTimes(1);
     expect(searchButton).toBeInTheDocument();
     expect(letterLink).toBeInTheDocument();
+    expect(bttSearch2).toBeInTheDocument();
+  });
+  it('08 - Testa Name SerchBar Meals Alert', async () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/meals'));
+    const searchButton = screen.getByTestId(searchString);
+    const bttSearch2 = screen.getByTestId(btnString);
+    const nameLink = screen.getByTestId('name-search-radio');
+    userEvent.click(searchButton);
+    const searchInput = screen.getByTestId(searchBtnString);
+    userEvent.type(searchInput, 'ovotz');
+    userEvent.click(nameLink);
+    userEvent.click(bttSearch2);
+    const alertText = await screen.findByText('Sorry, we haven\'t found any recipes for these filters.', { exact: false });
+    expect(alertText).toBeInTheDocument();
+    expect(searchButton).toBeInTheDocument();
+    expect(nameLink).toBeInTheDocument();
+    expect(bttSearch2).toBeInTheDocument();
+  });
+  it('09 - Testa Ingredient SerchBar Meals Alert', async () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/meals'));
+    const searchButton = screen.getByTestId(searchString);
+    const bttSearch2 = screen.getByTestId(btnString);
+    const ingredientLink = screen.getByTestId(ingredientString);
+    userEvent.click(searchButton);
+    const searchInput = screen.getByTestId(searchBtnString);
+    userEvent.type(searchInput, 'sadjisajd');
+    userEvent.click(ingredientLink);
+    userEvent.click(bttSearch2);
+    const alertText = await screen.findByText('Sorry, we haven\'t found any recipes for these filters.', { exact: false });
+    expect(alertText).toBeInTheDocument();
+    expect(searchButton).toBeInTheDocument();
+    expect(ingredientLink).toBeInTheDocument();
     expect(bttSearch2).toBeInTheDocument();
   });
 });
