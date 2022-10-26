@@ -8,6 +8,7 @@ function TagsForFilters({ history }) {
   const { setApiData } = useContext(RecipeContext);
   const cinco = 5;
   const [fetchCategory, setFetchCategory] = useState([]);
+  const [toggle, setToggle] = useState(false);
   const type = history.location.pathname.substring(1);
   useEffect(() => {
     const fetch = async () => {
@@ -21,19 +22,23 @@ function TagsForFilters({ history }) {
   const handleClickCategory = async (categoryParam) => {
     const response = await fetchRecipesByCategory(type, categoryParam);
     setApiData(response);
+    setToggle(!toggle);
   };
 
   const fetchAndSetRecipes = async () => {
     const result = await fetchRecipesByType(type);
     // const initialRecipes = result.slice(0, INITIAL_RECIPES_TO_RENDER);
     setApiData(result);
+    setToggle(!toggle);
   };
   return (
     <div>
       {
         fetchCategory.slice(0, cinco).map((e, index) => (
           <button
-            onClick={ () => handleClickCategory(e.strCategory) }
+            onClick={
+              !toggle ? () => handleClickCategory(e.strCategory) : fetchAndSetRecipes
+            }
             key={ index }
             type="button"
             data-testid={ `${e.strCategory}-category-filter` }
