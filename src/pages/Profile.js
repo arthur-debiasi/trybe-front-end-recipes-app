@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import RecipeProvider from '../context/RecipeProvider';
 
 function Profile(props) {
   const getUser = JSON.parse(localStorage.getItem('user'));
@@ -17,7 +18,9 @@ function Profile(props) {
 
   return (
     <div>
-      <Header history={ history } />
+      <RecipeProvider history={ history }>
+        <Header history={ history } />
+      </RecipeProvider>
       <p
         data-testid="profile-email"
       >
