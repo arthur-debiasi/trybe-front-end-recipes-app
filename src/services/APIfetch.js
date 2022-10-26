@@ -49,6 +49,13 @@ export const fetchByCategory = async (type) => {
   return data[type];
 };
 
+export const fetchDetais = async (id, type) => {
+  const urlType = type === 'meals' ? 'themealdb' : 'thecocktaildb';
+  const response = await fetch(`https://www.${urlType}.com/api/json/v1/1/lookup.php?i=${id}`);
+  const data = await response.json();
+  return data[type];
+};
+
 export const fetchRecipesByCategory = async (type, category) => {
   const urlType = type === 'meals' ? 'themealdb' : 'thecocktaildb';
   const response = await fetch(`https://www.${urlType}.com/api/json/v1/1/filter.php?c=${category}`);
