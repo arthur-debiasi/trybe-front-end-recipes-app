@@ -83,6 +83,26 @@ function RecipeDetails({ history }) {
     clipboardCopy(`http://localhost:3000${history.location.pathname}`);
     setIsCliped(true);
   };
+
+  const handleFavoriteBtn = () => {
+    const idRecipe = typeMelsDrink === 'meals' ? 'idMeal' : 'idDrink';
+    const favoriteRecipes = localStorage.getItem('favoriteRecipes')
+      ? JSON.parse(localStorage.getItem('favoriteRecipes')) : [];
+    const newFavoriteRecipes = [...favoriteRecipes, {
+      id: recipe[0][idRecipe],
+      type: typeMelsDrink === 'meals' ? 'meal' : 'drink',
+      nationality: recipe[0].strArea || '',
+      category: recipe[0].strCategory || '',
+      alcoholicOrNot: recipe[0].strAlcoholic || '',
+      name: recipe[0].strDrink || recipe[0].strMeal,
+      image: recipe[0].strDrinkThumb || recipe[0].strMealThumb,
+    }];
+    const isRecipeFavorited = favoriteRecipes.some((e) => e.id === recipe[0][idRecipe]);
+    if (!isRecipeFavorited) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+    }
+  };
+
   return (
     <div>
       <h1 data-testid="recipe-details">RecipeDetails</h1>
@@ -97,7 +117,14 @@ function RecipeDetails({ history }) {
         />
       </button>
       {isCliped && 'Link copied!'}
-      <button type="button" data-testid="favorite-btn">favorite</button>
+      <button
+        type="button"
+        data-testid="favorite-btn"
+        onClick={ handleFavoriteBtn }
+      >
+        favorite
+
+      </button>
       {
         trueFalse
          && (
