@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import clipboardCopy from 'clipboard-copy';
 import { fetchDetais, fetchGetTypeInvert } from '../services/APIfetch';
 import MyContext from '../context/MyContext';
 import RecommendationCard from '../components/RecommendationCard';
 import './RecipesDetails.css';
+import shareIcon from '../images/shareIcon.svg';
 
 function RecipeDetails({ history }) {
   const [recipe, setRecipe] = useState({});
@@ -13,6 +16,7 @@ function RecipeDetails({ history }) {
   const [isRecipeDone, setIsRecipeDone] = useState(false);
   const [recipeId, setRecipeId] = useState('');
   const [isInProgress, setIsInProgress] = useState(false);
+  const [isCliped, setIsCliped] = useState(false);
 
   const { setApiForType } = useContext(MyContext);
 
@@ -65,7 +69,6 @@ function RecipeDetails({ history }) {
     getId();
   }, [history.location.pathname, path, setApiForType, type, typeMelsDrink]);
 
-  console.log(typeMelsDrink);
   useEffect(() => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     const inProgressRecipes = !localStorage.getItem('inProgressRecipes')
@@ -76,9 +79,25 @@ function RecipeDetails({ history }) {
     setIsRecipeDone(isDone);
   }, [isInProgress, recipeId, typeMelsDrink]);
 
+  const handleShare = () => {
+    clipboardCopy(`http://localhost:3000${history.location.pathname}`);
+    setIsCliped(true);
+  };
   return (
     <div>
       <h1 data-testid="recipe-details">RecipeDetails</h1>
+      <button
+        type="button"
+        onClick={ handleShare }
+        data-testid="share-btn"
+      >
+        <img
+          src={ shareIcon }
+          alt="share-link"
+        />
+      </button>
+      {isCliped && 'Link copied!'}
+      <button type="button" data-testid="favorite-btn">favorite</button>
       {
         trueFalse
          && (
@@ -126,22 +145,20 @@ function RecipeDetails({ history }) {
       }
       {
         !isRecipeDone && (
-          <button
-            className="startRecipe"
-            type="button"
-            data-testid="start-recipe-btn"
-          >
-            {
+          <Link to={ `/${typeMelsDrink}/${recipeId}/in-progress` }>
+            <button
+              className="startRecipe"
+              type="button"
+              data-testid="start-recipe-btn"
+            >
+              {
 
-              isInProgress ? 'Continue Recipe' : 'Start Recipe'
-            }
+                isInProgress ? 'Continue Recipe' : 'Start Recipe'
+              }
 
-          </button>
+            </button>
+          </Link>
         )
-
-      }
-
-      {
 
       }
       <div className="scrolling">
