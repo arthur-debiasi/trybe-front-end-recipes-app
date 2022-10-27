@@ -2,11 +2,9 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import meals from '../../cypress/mocks/meals';
-import drinks from '../../cypress/mocks/drinks';
 import App from '../App';
 import renderWithRouter from './helpers/renderWith';
 import oneMeal from '../../cypress/mocks/oneMeal';
-import oneDrink from '../../cypress/mocks/oneDrink';
 import oneDrinkId15997 from '../../cypress/mocks/oneDrinkId15997';
 
 describe('Testa RecipeDetails', () => {
