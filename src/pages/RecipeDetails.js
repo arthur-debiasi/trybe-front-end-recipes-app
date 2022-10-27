@@ -7,6 +7,8 @@ import MyContext from '../context/MyContext';
 import RecommendationCard from '../components/RecommendationCard';
 import './RecipesDetails.css';
 import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function RecipeDetails({ history }) {
   const [recipe, setRecipe] = useState({});
@@ -17,6 +19,7 @@ function RecipeDetails({ history }) {
   const [recipeId, setRecipeId] = useState('');
   const [isInProgress, setIsInProgress] = useState(false);
   const [isCliped, setIsCliped] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(false);
 
   const { setApiForType } = useContext(MyContext);
 
@@ -77,7 +80,14 @@ function RecipeDetails({ history }) {
     const isDone = doneRecipes.some((e) => e.id === recipeId);
     setIsInProgress(Object.keys(isProgress).includes(recipeId));
     setIsRecipeDone(isDone);
-  }, [isInProgress, recipeId, typeMelsDrink]);
+  }, [isInProgress, recipe, recipeId, typeMelsDrink]);
+
+  useEffect(() => {
+    const favoriteRecipes = localStorage.getItem('favoriteRecipes')
+      ? JSON.parse(localStorage.getItem('favoriteRecipes')) : [];
+    const isRecipeFavorited = favoriteRecipes.some((e) => e.id === recipeId);
+    setIsFavorited(isRecipeFavorited);
+  }, [recipeId]);
 
   const handleShare = () => {
     clipboardCopy(`http://localhost:3000${history.location.pathname}`);
@@ -97,9 +107,14 @@ function RecipeDetails({ history }) {
       name: recipe[0].strDrink || recipe[0].strMeal,
       image: recipe[0].strDrinkThumb || recipe[0].strMealThumb,
     }];
-    const isRecipeFavorited = favoriteRecipes.some((e) => e.id === recipe[0][idRecipe]);
-    if (!isRecipeFavorited) {
+    if (!isFavorited) {
       localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+      setIsFavorited(true);
+    } else {
+      const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const newFavorited = favorited.filter((e) => e.id !== recipeId);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorited));
+      setIsFavorited(false);
     }
   };
 
@@ -119,10 +134,13 @@ function RecipeDetails({ history }) {
       {isCliped && 'Link copied!'}
       <button
         type="button"
-        data-testid="favorite-btn"
         onClick={ handleFavoriteBtn }
       >
-        favorite
+        <img
+          data-testid="favorite-btn"
+          src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
+          alt="favorite-link"
+        />
 
       </button>
       {
