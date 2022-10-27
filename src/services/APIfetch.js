@@ -32,6 +32,7 @@ export const fetchByFirstLetter = async (firstLetter, type) => {
 };
 
 export const fetchRecipesByType = async (type) => {
+  console.log(type);
   const urlType = type === 'meals' ? 'themealdb' : 'thecocktaildb';
   try {
     const response = await fetch(`https://www.${urlType}.com/api/json/v1/1/search.php?s=`);
@@ -61,4 +62,14 @@ export const fetchRecipesByCategory = async (type, category) => {
   const response = await fetch(`https://www.${urlType}.com/api/json/v1/1/filter.php?c=${category}`);
   const data = await response.json();
   return data[type];
+};
+
+export const fetchGetTypeInvert = async (type) => {
+  console.log(type);
+  const urlType = type === 'meals' ? 'thecocktaildb' : 'themealdb';
+  const typeInvert = type === 'meals' ? 'drinks' : 'meals';
+  console.log(`https://www.${urlType}.com/api/json/v1/1/search.php?s=`);
+  const response = await fetch(`https://www.${urlType}.com/api/json/v1/1/search.php?s=`);
+  const data = await response.json();
+  return data[typeInvert];
 };

@@ -14,7 +14,6 @@ function TagsForFilters({ history }) {
     const fetch = async () => {
       const response = await fetchByCategory(type);
       setFetchCategory(response);
-      console.log(response);
     };
     fetch();
   }, [type]);

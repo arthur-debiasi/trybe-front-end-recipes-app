@@ -14,6 +14,7 @@ function Recipes({ history }) {
       <TagsForFilters history={ history } />
       {/* <DisplayRecipe history={ history } /> */}
       <CardRecipes history={ history } />
+
       <Footer />
     </RecipeProvider>
   );

@@ -1,12 +1,25 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
-import { fetchDetais } from '../services/APIfetch';
+import React, { useState, useEffect, useContext } from 'react';
+import { fetchDetais, fetchGetTypeInvert } from '../services/APIfetch';
+import MyContext from '../context/MyContext';
 
 function RecipeDetails({ history }) {
   const [recipe, setRecipe] = useState({});
   const [trueFalse, setTrue] = useState(false);
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
+
+  const { setApiForType } = useContext(MyContext);
+  // useEffect(() => {
+  //   const response = async () => {
+  //     const type = history.location.pathname.substring(1).includes('meals')
+  //       ? 'meals' : 'drinks';
+  //     console.log(type);
+  //     const data = await fetchGetTypeInvert(type);
+  //     setApiForType(data);
+  //   };
+  //   response();
+  // }, [history.location.pathname, setApiForType]);
 
   const path = history.location.pathname;
   const UM = 1;
@@ -20,7 +33,6 @@ function RecipeDetails({ history }) {
         const idMeals = path.substring(SETE);
         const responseMeals = await fetchDetais(idMeals, 'meals');
         setRecipe(responseMeals);
-        console.log(responseMeals);
         const entries = Object.entries(responseMeals[0]);
         const filteredIngredients = entries
           .filter((e) => e[0].includes('strIngredient')).filter((e) => e[1] !== '');
@@ -28,7 +40,6 @@ function RecipeDetails({ history }) {
           .filter((e) => e[0].includes('strMeasure')).filter((e) => e[1] !== '');
         setIngredients(filteredIngredients);
         setMeasures(filteredMeasures);
-        console.log(filteredIngredients, filteredMeasures);
         setTrue(true);
       }
       if (type !== 'meals') {
@@ -47,9 +58,16 @@ function RecipeDetails({ history }) {
         setTrue(true);
       }
     };
+
+    const response = async () => {
+      const typeMelsDrink = history.location.pathname.substring(1).includes('meals')
+        ? 'meals' : 'drinks';
+      const data = await fetchGetTypeInvert(typeMelsDrink);
+      setApiForType(data);
+    };
+    response();
     getId();
-  }, [history.location.pathname, path, type]);
-  console.log(recipe);
+  }, [history.location.pathname, path, setApiForType, type]);
   return (
     <div>
       <h1 data-testid="recipe-details">RecipeDetails</h1>
