@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect, useContext } from 'react';
 import { fetchDetais, fetchGetTypeInvert } from '../services/APIfetch';
 import MyContext from '../context/MyContext';
+import RecommendationCard from '../components/RecommendationCard';
+import './RecipesDetails.css';
 
 function RecipeDetails({ history }) {
   const [recipe, setRecipe] = useState({});
@@ -10,16 +12,6 @@ function RecipeDetails({ history }) {
   const [measures, setMeasures] = useState([]);
 
   const { setApiForType } = useContext(MyContext);
-  // useEffect(() => {
-  //   const response = async () => {
-  //     const type = history.location.pathname.substring(1).includes('meals')
-  //       ? 'meals' : 'drinks';
-  //     console.log(type);
-  //     const data = await fetchGetTypeInvert(type);
-  //     setApiForType(data);
-  //   };
-  //   response();
-  // }, [history.location.pathname, setApiForType]);
 
   const path = history.location.pathname;
   const UM = 1;
@@ -54,7 +46,6 @@ function RecipeDetails({ history }) {
           .filter((e) => e[0].includes('strMeasure')).filter((e) => e[1] !== 'null');
         setIngredients(filteredIngredients);
         setMeasures(filteredMeasures);
-        console.log(filteredIngredients, filteredMeasures);
         setTrue(true);
       }
     };
@@ -68,6 +59,7 @@ function RecipeDetails({ history }) {
     response();
     getId();
   }, [history.location.pathname, path, setApiForType, type]);
+
   return (
     <div>
       <h1 data-testid="recipe-details">RecipeDetails</h1>
@@ -116,6 +108,9 @@ function RecipeDetails({ history }) {
            </div>
          )
       }
+      <div className="scrolling">
+        <RecommendationCard />
+      </div>
     </div>
   );
 }
