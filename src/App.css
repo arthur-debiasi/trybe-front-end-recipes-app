@@ -37,6 +37,10 @@
   font-weight: 900;
 }
 
+.finished {
+  text-decoration: line-through solid rgb(0, 0, 0)
+}
+
 @keyframes shake {
 
   0% {

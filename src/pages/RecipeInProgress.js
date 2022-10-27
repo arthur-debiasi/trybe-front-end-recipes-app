@@ -9,6 +9,7 @@ import './RecipesDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import '../App.css';
 
 function RecipeInProgress({ history }) {
   const [recipe, setRecipe] = useState({});
@@ -20,6 +21,7 @@ function RecipeInProgress({ history }) {
   const [isInProgress, setIsInProgress] = useState(false);
   const [isCliped, setIsCliped] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
+  const [checked, setChecked] = useState([]);
 
   const { setApiForType } = useContext(MyContext);
 
@@ -28,13 +30,11 @@ function RecipeInProgress({ history }) {
     ? 'meals' : 'drinks';
   const UM = 1;
   const SEIS = 6;
-  const SETE = 7;
-  const OITO = 8;
   const type = path.substring(UM, SEIS);
   useEffect(() => {
     const getId = async () => {
       if (type === 'meals') {
-        const idMeals = path.substring(SETE);
+        const idMeals = path.split('/')[2];
         const responseMeals = await fetchDetais(idMeals, 'meals');
         setRecipe(responseMeals);
         const entries = Object.entries(responseMeals[0]);
@@ -48,7 +48,7 @@ function RecipeInProgress({ history }) {
         setRecipeId(responseMeals[0].idMeal);
       }
       if (type !== 'meals') {
-        const idDrinks = path.substring(OITO);
+        const idDrinks = path.split('/')[2];
         const response = await fetchDetais(idDrinks, 'drinks');
         setRecipe(response);
         const entries = Object.entries(response[0]);
@@ -94,6 +94,15 @@ function RecipeInProgress({ history }) {
     setIsCliped(true);
   };
 
+  const handleIngredientClick = (i) => {
+    const newPush = i[1];
+    setChecked([...checked, newPush]);
+  };
+  const handleClassName = (a) => {
+    const isDone = checked.some((e) => e === a[1]);
+    return isDone;
+  };
+
   const handleFavoriteBtn = () => {
     const idRecipe = typeMelsDrink === 'meals' ? 'idMeal' : 'idDrink';
     const favoriteRecipes = localStorage.getItem('favoriteRecipes')
@@ -120,7 +129,7 @@ function RecipeInProgress({ history }) {
 
   return (
     <div>
-      <h1 data-testid="recipe-details">RecipeDetails</h1>
+      <h1 data-testid="recipe-in-progress">Recipe in Progress</h1>
       <button
         type="button"
         onClick={ handleShare }
@@ -165,17 +174,32 @@ function RecipeInProgress({ history }) {
              <text data-testid="instructions">{recipe[0].strInstructions}</text>
              <ul>
                {
-                 ingredients.map((i, index) => (
-                   <li
-                     key={ i[1] }
-                     data-testid={ `${index}-ingredient-name-and-measure` }
-                   >
-                     {`${i[1]} ${measures[index][1] || ''}`}
+                 ingredients.map((i, index) => {
+                   const trueFa = handleClassName(i);
+                   return (
+                     <li key={ i[1] }>
+                       <label
+                         htmlFor="ingredient"
+                         data-testid={ `${index}-ingredient-step` }
+                         className={ trueFa === true
+                           ? 'finished'
+                           : 'unfinished' }
+                       >
+                         <input
+                           type="checkbox"
+                           checked={ trueFa }
+                           name="ingredient"
+                           onClick={ () => handleIngredientClick(i) }
+                         />
+                         {`${i[1]} ${measures[index][1] || ''}`}
+                       </label>
+                     </li>
 
-                   </li>
-                 ))
+                   );
+                 })
                }
              </ul>
+
              {type === 'meals' && (
                <iframe
                  title={ recipe[0].strMeal || recipe[0].strDrink }
@@ -198,7 +222,7 @@ function RecipeInProgress({ history }) {
             >
               {
 
-                isInProgress ? 'Continue Recipe' : 'Start Recipe'
+                isInProgress ? 'Continue Recipe' : 'Finish'
               }
 
             </button>
