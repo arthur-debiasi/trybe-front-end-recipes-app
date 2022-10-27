@@ -1,0 +1,17 @@
+.scrolling {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  width: 50%;
+}
+
+.card {
+  display: inline-block;
+  margin-left: 3em;
+  width: 25%;
+}
+
+.startRecipe {
+  bottom: 0;
+  position: fixed;
+}
