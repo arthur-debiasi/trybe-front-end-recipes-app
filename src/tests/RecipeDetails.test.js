@@ -4,6 +4,8 @@ import { act } from 'react-dom/test-utils';
 import meals from '../../cypress/mocks/meals';
 import App from '../App';
 import renderWithRouter from './helpers/renderWith';
+import oneMeal from '../../cypress/mocks/oneMeal';
+import oneDrinkId15997 from '../../cypress/mocks/oneDrinkId15997';
 
 describe('Testa RecipeDetails', () => {
   it('simula interação de usuário', async () => {
@@ -25,6 +27,26 @@ describe('Testa RecipeDetails', () => {
     expect(c).toBeDefined();
     // expect(screen.getByTestId('instructions')).toBeDefined();
     userEvent.click(btnStartRecipe);
+  });
+  it('Testa favorite button meals', async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(oneMeal),
+    });
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/meals/52771'));
+    const favoriteButton = await screen.findByTestId('favorite-btn');
+    userEvent.click(favoriteButton);
+  });
+  it('Testa favorite button drinks', async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(oneDrinkId15997),
+    });
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/drinks/15997'));
+    const favoriteButton = await screen.findByTestId('favorite-btn');
+    userEvent.click(favoriteButton);
+    const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    console.log(storage);
   });
 });
 
