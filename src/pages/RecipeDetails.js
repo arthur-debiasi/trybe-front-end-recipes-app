@@ -108,6 +108,14 @@ function RecipeDetails({ history }) {
            </div>
          )
       }
+      <button
+        className="startRecipe"
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        Start Recipe
+
+      </button>
       <div className="scrolling">
         <RecommendationCard />
       </div>
