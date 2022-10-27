@@ -10,10 +10,15 @@ function RecipeDetails({ history }) {
   const [trueFalse, setTrue] = useState(false);
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
+  const [isRecipeDone, setIsRecipeDone] = useState(false);
+  const [recipeId, setRecipeId] = useState('');
+  const [isInProgress, setIsInProgress] = useState(false);
 
   const { setApiForType } = useContext(MyContext);
 
   const path = history.location.pathname;
+  const typeMelsDrink = history.location.pathname.substring(1).includes('meals')
+    ? 'meals' : 'drinks';
   const UM = 1;
   const SEIS = 6;
   const SETE = 7;
@@ -33,6 +38,7 @@ function RecipeDetails({ history }) {
         setIngredients(filteredIngredients);
         setMeasures(filteredMeasures);
         setTrue(true);
+        setRecipeId(responseMeals[0].idMeal);
       }
       if (type !== 'meals') {
         const idDrinks = path.substring(OITO);
@@ -47,18 +53,28 @@ function RecipeDetails({ history }) {
         setIngredients(filteredIngredients);
         setMeasures(filteredMeasures);
         setTrue(true);
+        setRecipeId(response[0].idDrink);
       }
     };
 
     const response = async () => {
-      const typeMelsDrink = history.location.pathname.substring(1).includes('meals')
-        ? 'meals' : 'drinks';
       const data = await fetchGetTypeInvert(typeMelsDrink);
       setApiForType(data);
     };
     response();
     getId();
-  }, [history.location.pathname, path, setApiForType, type]);
+  }, [history.location.pathname, path, setApiForType, type, typeMelsDrink]);
+
+  console.log(typeMelsDrink);
+  useEffect(() => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    const inProgressRecipes = !localStorage.getItem('inProgressRecipes')
+      ? { drinks: {}, meals: {} } : JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const isProgress = inProgressRecipes[typeMelsDrink];
+    const isDone = doneRecipes.some((e) => e.id === recipeId);
+    setIsInProgress(Object.keys(isProgress).includes(recipeId));
+    setIsRecipeDone(isDone);
+  }, [isInProgress, recipeId, typeMelsDrink]);
 
   return (
     <div>
@@ -108,14 +124,26 @@ function RecipeDetails({ history }) {
            </div>
          )
       }
-      <button
-        className="startRecipe"
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Start Recipe
+      {
+        !isRecipeDone && (
+          <button
+            className="startRecipe"
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            {
 
-      </button>
+              isInProgress ? 'Continue Recipe' : 'Start Recipe'
+            }
+
+          </button>
+        )
+
+      }
+
+      {
+
+      }
       <div className="scrolling">
         <RecommendationCard />
       </div>
