@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
 import { fetchDetais, fetchGetTypeInvert, setLocalStorage,
   getLocalStorage } from '../services/APIfetch';
@@ -123,6 +122,26 @@ function RecipeInProgress({ history }) {
       setIsFavorited(false);
     }
   };
+  // if (recipe.strTags) console.log(recipe.strTags.split(', '));
+  const handleFinishbtn = () => {
+    const date = new Date();
+    const doneRecipes = getLocalStorage('doneRecipes', []);
+    const newDoneRecipes = [...doneRecipes, {
+      id: recipe[recipeKey],
+      type: type === 'meals' ? 'meal' : 'drink',
+      nationality: recipe.strArea || '',
+      category: recipe.strCategory || '',
+      alcoholicOrNot: recipe.strAlcoholic || '',
+      name: recipe.strDrink || recipe.strMeal,
+      image: recipe.strDrinkThumb || recipe.strMealThumb,
+      doneDate: date,
+      tags: recipe.strTags
+        .split(','),
+    }];
+    console.log(newDoneRecipes);
+    setLocalStorage('doneRecipes', newDoneRecipes);
+    history.push('/done-recipes');
+  };
   return (
     <div>
       <h1 data-testid="recipe-in-progress">Recipe in Progress</h1>
@@ -194,19 +213,21 @@ function RecipeInProgress({ history }) {
          )
       }
       { !isRecipeDone && (
-        <Link to={ `/${type}/${recipeId}/in-progress` }>
-          <button
-            className="startRecipe"
-            type="button"
-            data-testid="finish-recipe-btn"
-          >
-            { isInProgress ? 'Continue Recipe' : 'Finish' }
-          </button>
-        </Link>
+
+        <button
+          className="startRecipe"
+          type="button"
+          data-testid="finish-recipe-btn"
+          disabled={ checked.length !== ingredients.length }
+          onClick={ handleFinishbtn }
+        >
+          Finish
+        </button>
+
       )}
       <div className="scrolling"><RecommendationCard /></div>
     </div>
   );
 }
-RecipeInProgress.propTypes = { history: PropTypes.shape.isRequired };
+RecipeInProgress.propTypes = { history: PropTypes.shape }.isRequired;
 export default RecipeInProgress;
