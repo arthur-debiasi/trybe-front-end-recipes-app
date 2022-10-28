@@ -43,8 +43,7 @@ function RecipeDetails({ history }) {
           .filter((e) => e[0].includes('strIngredient'))
           .filter((e) => e[1] !== '' && e[1] !== null);
         const filteredMeasures = entries
-          .filter((e) => e[0].includes('strMeasure'))
-          .filter((e) => e[1] !== '' && e[1] !== null);
+          .filter((e) => e[0].includes('strMeasure'));
         setIngredients(filteredIngredients);
         setMeasures(filteredMeasures);
         setTrue(true);
@@ -55,12 +54,11 @@ function RecipeDetails({ history }) {
         const response = await fetchDetais(idDrinks, 'drinks');
         setRecipe(response);
         const entries = Object.entries(response[0]);
-        console.log(response);
         const filteredIngredients = entries
           .filter((e) => e[0].includes('strIngredient'))
           .filter((e) => e[1] !== '' && e[1] !== null);
         const filteredMeasures = entries
-          .filter((e) => e[0].includes('strMeasure')).filter((e) => e[1] !== 'null');
+          .filter((e) => e[0].includes('strMeasure'));
         setIngredients(filteredIngredients);
         setMeasures(filteredMeasures);
         setTrue(true);
@@ -217,14 +215,5 @@ function RecipeDetails({ history }) {
   );
 }
 
-RecipeDetails.propTypes = {
-  history: PropTypes.shape({
-    location: PropTypes.shape({
-      pathname: PropTypes.shape({
-        substring: PropTypes.func,
-      }),
-    }),
-  }),
-}.isRequired;
-
+RecipeDetails.propTypes = { history: PropTypes.shape.isRequired };
 export default RecipeDetails;
