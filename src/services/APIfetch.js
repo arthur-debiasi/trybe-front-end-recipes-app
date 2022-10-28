@@ -65,11 +65,19 @@ export const fetchRecipesByCategory = async (type, category) => {
 };
 
 export const fetchGetTypeInvert = async (type) => {
-  console.log(type);
   const urlType = type === 'meals' ? 'thecocktaildb' : 'themealdb';
   const typeInvert = type === 'meals' ? 'drinks' : 'meals';
-  console.log(`https://www.${urlType}.com/api/json/v1/1/search.php?s=`);
   const response = await fetch(`https://www.${urlType}.com/api/json/v1/1/search.php?s=`);
   const data = await response.json();
   return data[typeInvert];
+};
+
+export const getLocalStorage = (key, defaultValue) => {
+  const favoriteRecipes = localStorage.getItem(key)
+    ? JSON.parse(localStorage.getItem(key)) : defaultValue;
+  return favoriteRecipes;
+};
+
+export const setLocalStorage = (key, value) => {
+  localStorage.setItem(key, JSON.stringify(value));
 };
