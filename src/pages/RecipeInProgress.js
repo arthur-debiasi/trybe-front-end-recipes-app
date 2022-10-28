@@ -1,9 +1,250 @@
-import React from 'react';
+import PropTypes from 'prop-types';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import clipboardCopy from 'clipboard-copy';
+import { fetchDetais, fetchGetTypeInvert } from '../services/APIfetch';
+import MyContext from '../context/MyContext';
+import RecommendationCard from '../components/RecommendationCard';
+import './RecipesDetails.css';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import '../App.css';
 
-function RecipeInProgress() {
+function RecipeInProgress({ history }) {
+  const [recipe, setRecipe] = useState({});
+  const [trueFalse, setTrue] = useState(false);
+  const [ingredients, setIngredients] = useState([]);
+  const [measures, setMeasures] = useState([]);
+  const [isRecipeDone, setIsRecipeDone] = useState(false);
+  const [recipeId, setRecipeId] = useState('');
+  const [isInProgress, setIsInProgress] = useState(false);
+  const [isCliped, setIsCliped] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(false);
+  const [checked, setChecked] = useState([]);
+  const { setApiForType } = useContext(MyContext);
+
+  const path = history.location.pathname;
+  const typeMelsDrink = history.location.pathname.substring(1).includes('meals')
+    ? 'meals' : 'drinks';
+  const UM = 1;
+  const SEIS = 6;
+  const type = path.substring(UM, SEIS);
+  const idStr = path.split('/')[2];
+  useEffect(() => {
+    const getId = async () => {
+      if (type === 'meals') {
+        const responseMeals = await fetchDetais(idStr, 'meals');
+        setRecipe(responseMeals);
+        const entries = Object.entries(responseMeals[0]);
+        const filteredIngredients = entries
+          .filter((e) => e[0].includes('strIngredient'))
+          .filter((e) => e[1] !== '' && e[1] !== null);
+        const filteredMeasures = entries
+          .filter((e) => e[0].includes('strMeasure'))
+          .filter((e) => e[1] !== '' && e[1] !== null);
+        setIngredients(filteredIngredients);
+        setMeasures(filteredMeasures);
+        setTrue(true);
+        setRecipeId(responseMeals[0].idMeal);
+      }
+      if (type !== 'meals') {
+        const response = await fetchDetais(idStr, 'drinks');
+        setRecipe(response);
+        const entries = Object.entries(response[0]);
+        const filteredIngredients = entries
+          .filter((e) => e[0].includes('strIngredient'))
+          .filter((e) => e[1] !== null && e[1] !== '');
+        const filteredMeasures = entries
+          .filter((e) => e[0].includes('strMeasure')).filter((e) => e[1] !== '');
+        setIngredients(filteredIngredients);
+        setMeasures(filteredMeasures);
+        setTrue(true);
+        setRecipeId(response[0].idDrink);
+      }
+    };
+
+    const response = async () => {
+      const data = await fetchGetTypeInvert(typeMelsDrink);
+      setApiForType(data);
+    };
+    response();
+    getId();
+  }, [history.location.pathname, path, setApiForType, type, idStr, typeMelsDrink]);
+
+  useEffect(() => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    const inProgressRecipes = !localStorage.getItem('inProgressRecipes')
+      ? { drinks: {}, meals: {} } : JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const isProgress = inProgressRecipes[typeMelsDrink];
+    const isDone = doneRecipes.some((e) => e.id === recipeId);
+    setIsInProgress(Object.keys(isProgress).includes(recipeId));
+    setIsRecipeDone(isDone);
+  }, [isInProgress, recipe, recipeId, typeMelsDrink]);
+
+  useEffect(() => {
+    const favoriteRecipes = localStorage.getItem('favoriteRecipes')
+      ? JSON.parse(localStorage.getItem('favoriteRecipes')) : [];
+    const isRecipeFavorited = favoriteRecipes.some((e) => e.id === recipeId);
+    setIsFavorited(isRecipeFavorited);
+  }, [recipeId]);
+
+  const handleShare = () => {
+    clipboardCopy(`http://localhost:3000${history.location.pathname}`);
+    setIsCliped(true);
+  };
+
+  const handleIngredientClick = (i) => {
+    const newPush = i[1];
+    setChecked([...checked, newPush]);
+  };
+  const handleClassName = (a) => {
+    const isDone = checked.some((e) => e === a[1]);
+    return isDone;
+  };
+
+  const handleFavoriteBtn = () => {
+    const idRecipe = typeMelsDrink === 'meals' ? 'idMeal' : 'idDrink';
+    const favoriteRecipes = localStorage.getItem('favoriteRecipes')
+      ? JSON.parse(localStorage.getItem('favoriteRecipes')) : [];
+    const newFavoriteRecipes = [...favoriteRecipes, {
+      id: recipe[0][idRecipe],
+      type: typeMelsDrink === 'meals' ? 'meal' : 'drink',
+      nationality: recipe[0].strArea || '',
+      category: recipe[0].strCategory || '',
+      alcoholicOrNot: recipe[0].strAlcoholic || '',
+      name: recipe[0].strDrink || recipe[0].strMeal,
+      image: recipe[0].strDrinkThumb || recipe[0].strMealThumb,
+    }];
+    if (!isFavorited) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+      setIsFavorited(true);
+    } else {
+      const favorited = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const newFavorited = favorited.filter((e) => e.id !== recipeId);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorited));
+      setIsFavorited(false);
+    }
+  };
+
   return (
-    <div>RecipeInProgress</div>
+    <div>
+      <h1 data-testid="recipe-in-progress">Recipe in Progress</h1>
+      <button
+        type="button"
+        onClick={ handleShare }
+        data-testid="share-btn"
+      >
+        <img
+          src={ shareIcon }
+          alt="share-link"
+        />
+      </button>
+      {isCliped && 'Link copied!'}
+      <button
+        type="button"
+        onClick={ handleFavoriteBtn }
+      >
+        <img
+          data-testid="favorite-btn"
+          src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
+          alt="favorite-link"
+        />
+
+      </button>
+      {
+        trueFalse
+         && (
+           <div>
+             <img
+               data-testid="recipe-photo"
+               src={ recipe[0].strMealThumb || recipe[0].strDrinkThumb }
+               alt={ recipe[0].strMeal || recipe[0].strDrink }
+             />
+             <h2
+               data-testid="recipe-title"
+             >
+               { recipe[0].strMeal || recipe[0].strDrink }
+             </h2>
+             <p
+               data-testid="recipe-category"
+             >
+               {recipe[0].strAlcoholic || recipe[0].strCategory }
+             </p>
+             <text data-testid="instructions">{recipe[0].strInstructions}</text>
+             <ul>
+               {
+                 ingredients.map((i, index) => {
+                   const trueFa = handleClassName(i);
+                   return (
+                     <li key={ i[1] }>
+                       <label
+                         htmlFor="ingredient"
+                         data-testid={ `${index}-ingredient-step` }
+                         className={ trueFa === true
+                           ? 'finished'
+                           : 'unfinished' }
+                       >
+                         <input
+                           type="checkbox"
+                           checked={ trueFa }
+                           name="ingredient"
+                           onClick={ () => handleIngredientClick(i) }
+                         />
+                         {`${i[1]} ${measures[index][1] || ''}`}
+                       </label>
+                     </li>
+
+                   );
+                 })
+               }
+             </ul>
+
+             {type === 'meals' && (
+               <iframe
+                 title={ recipe[0].strMeal || recipe[0].strDrink }
+                 data-testid="video"
+                 width="420"
+                 height="315"
+                 src={ recipe[0].strYoutube }
+               />
+             )}
+           </div>
+         )
+      }
+      {
+        !isRecipeDone && (
+          <Link to={ `/${typeMelsDrink}/${recipeId}/in-progress` }>
+            <button
+              className="startRecipe"
+              type="button"
+              data-testid="finish-recipe-btn"
+            >
+              {
+
+                isInProgress ? 'Continue Recipe' : 'Finish'
+              }
+
+            </button>
+          </Link>
+        )
+
+      }
+      <div className="scrolling">
+        <RecommendationCard />
+      </div>
+    </div>
   );
 }
+
+RecipeInProgress.propTypes = {
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.shape({
+        substring: PropTypes.func,
+      }),
+    }),
+  }),
+}.isRequired;
 
 export default RecipeInProgress;
