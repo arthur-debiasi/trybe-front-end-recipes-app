@@ -36,12 +36,15 @@ function RecipeDetails({ history }) {
       if (type === 'meals') {
         const idMeals = path.substring(SETE);
         const responseMeals = await fetchDetais(idMeals, 'meals');
+        console.log(responseMeals);
         setRecipe(responseMeals);
         const entries = Object.entries(responseMeals[0]);
         const filteredIngredients = entries
-          .filter((e) => e[0].includes('strIngredient')).filter((e) => e[1] !== '');
+          .filter((e) => e[0].includes('strIngredient'))
+          .filter((e) => e[1] !== '' && e[1] !== null);
         const filteredMeasures = entries
-          .filter((e) => e[0].includes('strMeasure')).filter((e) => e[1] !== '');
+          .filter((e) => e[0].includes('strMeasure'))
+          .filter((e) => e[1] !== '' && e[1] !== null);
         setIngredients(filteredIngredients);
         setMeasures(filteredMeasures);
         setTrue(true);
@@ -52,9 +55,10 @@ function RecipeDetails({ history }) {
         const response = await fetchDetais(idDrinks, 'drinks');
         setRecipe(response);
         const entries = Object.entries(response[0]);
-        // console.log(entries[3][1]);
+        console.log(response);
         const filteredIngredients = entries
-          .filter((e) => e[0].includes('strIngredient')).filter((e) => e[1] !== null);
+          .filter((e) => e[0].includes('strIngredient'))
+          .filter((e) => e[1] !== '' && e[1] !== null);
         const filteredMeasures = entries
           .filter((e) => e[0].includes('strMeasure')).filter((e) => e[1] !== 'null');
         setIngredients(filteredIngredients);

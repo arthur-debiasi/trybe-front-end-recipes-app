@@ -22,7 +22,6 @@ function RecipeInProgress({ history }) {
   const [isCliped, setIsCliped] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
   const [checked, setChecked] = useState([]);
-
   const { setApiForType } = useContext(MyContext);
 
   const path = history.location.pathname;
@@ -31,32 +30,33 @@ function RecipeInProgress({ history }) {
   const UM = 1;
   const SEIS = 6;
   const type = path.substring(UM, SEIS);
+  const idStr = path.split('/')[2];
   useEffect(() => {
     const getId = async () => {
       if (type === 'meals') {
-        const idMeals = path.split('/')[2];
-        const responseMeals = await fetchDetais(idMeals, 'meals');
+        const responseMeals = await fetchDetais(idStr, 'meals');
         setRecipe(responseMeals);
         const entries = Object.entries(responseMeals[0]);
         const filteredIngredients = entries
-          .filter((e) => e[0].includes('strIngredient')).filter((e) => e[1] !== '');
+          .filter((e) => e[0].includes('strIngredient'))
+          .filter((e) => e[1] !== '' && e[1] !== null);
         const filteredMeasures = entries
-          .filter((e) => e[0].includes('strMeasure')).filter((e) => e[1] !== '');
+          .filter((e) => e[0].includes('strMeasure'))
+          .filter((e) => e[1] !== '' && e[1] !== null);
         setIngredients(filteredIngredients);
         setMeasures(filteredMeasures);
         setTrue(true);
         setRecipeId(responseMeals[0].idMeal);
       }
       if (type !== 'meals') {
-        const idDrinks = path.split('/')[2];
-        const response = await fetchDetais(idDrinks, 'drinks');
+        const response = await fetchDetais(idStr, 'drinks');
         setRecipe(response);
         const entries = Object.entries(response[0]);
-        // console.log(entries[3][1]);
         const filteredIngredients = entries
-          .filter((e) => e[0].includes('strIngredient')).filter((e) => e[1] !== null);
+          .filter((e) => e[0].includes('strIngredient'))
+          .filter((e) => e[1] !== null && e[1] !== '');
         const filteredMeasures = entries
-          .filter((e) => e[0].includes('strMeasure')).filter((e) => e[1] !== 'null');
+          .filter((e) => e[0].includes('strMeasure')).filter((e) => e[1] !== '');
         setIngredients(filteredIngredients);
         setMeasures(filteredMeasures);
         setTrue(true);
@@ -70,7 +70,7 @@ function RecipeInProgress({ history }) {
     };
     response();
     getId();
-  }, [history.location.pathname, path, setApiForType, type, typeMelsDrink]);
+  }, [history.location.pathname, path, setApiForType, type, idStr, typeMelsDrink]);
 
   useEffect(() => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
