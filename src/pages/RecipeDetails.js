@@ -36,7 +36,6 @@ function RecipeDetails({ history }) {
       if (type === 'meals') {
         const idMeals = path.substring(SETE);
         const responseMeals = await fetchDetais(idMeals, 'meals');
-        console.log(responseMeals);
         setRecipe(responseMeals);
         const entries = Object.entries(responseMeals[0]);
         const filteredIngredients = entries
