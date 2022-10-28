@@ -122,6 +122,7 @@ function RecipeInProgress({ history }) {
       setIsFavorited(false);
     }
   };
+  console.log(recipe);
   // if (recipe.strTags) console.log(recipe.strTags.split(', '));
   const handleFinishbtn = () => {
     const date = new Date();
@@ -135,8 +136,8 @@ function RecipeInProgress({ history }) {
       name: recipe.strDrink || recipe.strMeal,
       image: recipe.strDrinkThumb || recipe.strMealThumb,
       doneDate: date,
-      tags: recipe.strTags
-        .split(','),
+      tags: recipe.strTags ? recipe.strTags
+        .split(',') : [],
     }];
     console.log(newDoneRecipes);
     setLocalStorage('doneRecipes', newDoneRecipes);
