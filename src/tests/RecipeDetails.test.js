@@ -59,6 +59,18 @@ describe('Testa RecipeDetails', () => {
     expect(img).toBeDefined();
     expect(title).toBeDefined();
   });
+  it('Recommendation test', async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(drinks),
+    });
+    const { history } = renderWithRouter(<App />);
+    act(() => history.push('/meals/52977'));
+    //  Por enquanto o debaixo tem q ficar porcausa da mock
+    const imglink = await screen.findByTestId(cardString);
+    userEvent.click(imglink);
+    const divRec = await screen.findByTestId('div-card');
+    expect(divRec).toBeDefined();
+  });
 });
 
 // 58% Coverage mas falhando por causa da mock

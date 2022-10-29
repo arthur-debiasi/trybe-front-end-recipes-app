@@ -5,7 +5,7 @@ function RecommendationCard() {
   const { apiForType } = useContext(MyContext);
   const seis = 6;
   return (
-    <div>
+    <div data-testid="div-card">
       {
         apiForType.slice(0, seis).map((e, index) => (
           <div
