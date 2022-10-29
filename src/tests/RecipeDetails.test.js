@@ -2,10 +2,9 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import meals from '../../cypress/mocks/meals';
+import drinks from '../../cypress/mocks/drinks';
 import App from '../App';
 import renderWithRouter from './helpers/renderWith';
-import oneMeal from '../../cypress/mocks/oneMeal';
-import oneDrinkId15997 from '../../cypress/mocks/oneDrinkId15997';
 
 describe('Testa RecipeDetails', () => {
   it('simula interação de usuário', async () => {
@@ -28,26 +27,32 @@ describe('Testa RecipeDetails', () => {
     // expect(screen.getByTestId('instructions')).toBeDefined();
     userEvent.click(btnStartRecipe);
   });
-  it('Testa favorite button meals', async () => {
+  it('Meals test', async () => {
     global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(oneMeal),
+      json: jest.fn().mockResolvedValue(meals),
     });
     const { history } = renderWithRouter(<App />);
-    act(() => history.push('/meals/52771'));
-    const favoriteButton = await screen.findByTestId('favorite-btn');
-    userEvent.click(favoriteButton);
+    act(() => history.push('/meals'));
+    expect(history.location.pathname).toBe('/meals');
+    const imglink = await screen.findByTestId('0-card-img');
+    expect(imglink).toBeDefined();
+    userEvent.click(imglink);
+    const img = await screen.findByTestId('recipe-photo');
+    const title = await screen.findByTestId('recipe-title');
   });
-  it('Testa favorite button drinks', async () => {
+  it('Drinks test', async () => {
     global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(oneDrinkId15997),
+      json: jest.fn().mockResolvedValue(drinks),
     });
     const { history } = renderWithRouter(<App />);
-    act(() => history.push('/drinks/15997'));
-    const favoriteButton = await screen.findByTestId('favorite-btn');
-    userEvent.click(favoriteButton);
-    const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    console.log(storage);
+    act(() => history.push('/drinks'));
+    expect(history.location.pathname).toBe('/drinks');
+    const imglink = await screen.findByTestId('0-card-img');
+    expect(imglink).toBeDefined();
+    act(() => userEvent.click(imglink));
+    const img = await screen.findByTestId('recipe-photo');
+    const title = await screen.findByTestId('recipe-title');
   });
 });
 
-// NÃO SEI O QUE MAIS FAZER NESSA MERDA
+// 58% Coverage mas falhando por causa da mock
