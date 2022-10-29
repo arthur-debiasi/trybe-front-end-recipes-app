@@ -6,6 +6,8 @@ import drinks from '../../cypress/mocks/drinks';
 import App from '../App';
 import renderWithRouter from './helpers/renderWith';
 
+const cardString = '0-card-img';
+
 describe('Testa RecipeDetails', () => {
   it('simula interação de usuário', async () => {
     global.fetch = jest.fn().mockResolvedValue({
@@ -14,7 +16,7 @@ describe('Testa RecipeDetails', () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/meals'));
     expect(history.location.pathname).toBe('/meals');
-    const imglink = await screen.findByTestId('0-card-img');
+    const imglink = await screen.findByTestId(cardString);
     expect(imglink).toBeDefined();
     userEvent.click(imglink);
     const btnStartRecipe = screen.getByTestId('start-recipe-btn');
@@ -34,11 +36,13 @@ describe('Testa RecipeDetails', () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/meals'));
     expect(history.location.pathname).toBe('/meals');
-    const imglink = await screen.findByTestId('0-card-img');
+    const imglink = await screen.findByTestId(cardString);
     expect(imglink).toBeDefined();
     userEvent.click(imglink);
     const img = await screen.findByTestId('recipe-photo');
     const title = await screen.findByTestId('recipe-title');
+    expect(img).toBeDefined();
+    expect(title).toBeDefined();
   });
   it('Drinks test', async () => {
     global.fetch = jest.fn().mockResolvedValue({
@@ -47,11 +51,13 @@ describe('Testa RecipeDetails', () => {
     const { history } = renderWithRouter(<App />);
     act(() => history.push('/drinks'));
     expect(history.location.pathname).toBe('/drinks');
-    const imglink = await screen.findByTestId('0-card-img');
+    const imglink = await screen.findByTestId(cardString);
     expect(imglink).toBeDefined();
     act(() => userEvent.click(imglink));
     const img = await screen.findByTestId('recipe-photo');
     const title = await screen.findByTestId('recipe-title');
+    expect(img).toBeDefined();
+    expect(title).toBeDefined();
   });
 });
 
