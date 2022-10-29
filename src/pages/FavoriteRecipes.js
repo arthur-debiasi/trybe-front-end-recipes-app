@@ -95,6 +95,7 @@ function FavoriteRecipes({ history }) {
                 <p data-testid={ `${index}-horizontal-done-date` }>{r.doneDate}</p>
                 <button
                   type="button"
+                  data-testid="share-btn"
                   onClick={ () => handleShare(r.type, r.id) }
                 >
                   <img
