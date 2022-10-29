@@ -84,7 +84,6 @@ function DoneRecipes({ history }) {
                         {r.alcoholicOrNot}
                       </p>)
                 }
-                
                 <p data-testid={ `${index}-horizontal-done-date` }>{r.doneDate}</p>
                 <button
                   type="button"
