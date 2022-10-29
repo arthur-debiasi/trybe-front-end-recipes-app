@@ -1,4 +1,3 @@
-import clipboardCopy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -19,9 +18,8 @@ function FavoriteRecipes({ history }) {
   }, []);
 
   const handleShare = (type, id) => {
-    console.log(id);
-    clipboardCopy(`http://localhost:3000/${type}s/${id}`);
     setLinkCopied(true);
+    navigator.clipboard.writeText(`${window.location.origin}/${type}s/${id}`);
   };
 
   const handleDesfavorite = (r) => {

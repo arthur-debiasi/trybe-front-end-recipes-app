@@ -17,6 +17,18 @@ const storage = [{
   tags: ['Streetfood', ' Onthego'],
 }];
 
+const drinkStorage = [{
+  alcoholicOrNot: 'Alcoholic',
+  category: 'Cocktail',
+  doneDate: '2022-10-29T04:16:09.014Z',
+  id: '17222',
+  image: 'https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg',
+  name: 'A1',
+  nationality: '',
+  tags: [],
+  type: 'drink',
+}];
+
 const localStorageMock = (function () {
   let store = {};
 
@@ -75,9 +87,8 @@ describe('Favorite test', () => {
     expect(localStorage.getItem('doneRecipes')).toEqual(JSON.stringify(storage));
     act(() => history.push(doneString));
     const share = await screen.findByTestId('0-horizontal-share-btn');
-    // O meu da erro mas talvez no seu rode a de baixo
-    // userEvent.click(share);
     expect(share).toBeInTheDocument();
+    userEvent.click(share);
   });
   it('Meals btn', () => {
     renderWithRouter(<App />);
@@ -88,5 +99,14 @@ describe('Favorite test', () => {
     const drinkFilter = screen.getByTestId('filter-by-drink-btn');
     userEvent.click(drinkFilter);
     userEvent.click(mealFilter);
+  });
+  it('Drink text', async () => {
+    renderWithRouter(<App />);
+    const { history } = renderWithRouter(<App />);
+    setLocalStorage('doneRecipes', drinkStorage);
+    act(() => history.push(doneString));
+    const share = await screen.findByTestId('0-horizontal-share-btn');
+    expect(share).toBeInTheDocument();
+    userEvent.click(share);
   });
 });

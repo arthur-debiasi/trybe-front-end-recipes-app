@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import clipboardCopy from 'clipboard-copy';
 import { fetchDetais, fetchGetTypeInvert } from '../services/APIfetch';
 import MyContext from '../context/MyContext';
 import RecommendationCard from '../components/RecommendationCard';
@@ -91,7 +90,7 @@ function RecipeDetails({ history }) {
   }, [recipeId]);
 
   const handleShare = () => {
-    clipboardCopy(`http://localhost:3000${history.location.pathname}`);
+    navigator.clipboard.writeText(window.location.href);
     setIsCliped(true);
   };
 

@@ -15,6 +15,18 @@ const storage = [{
   type: 'meal',
 }];
 
+const drinkStorage = [{
+  alcoholicOrNot: 'Alcoholic',
+  category: 'Cocktail',
+  doneDate: '2022-10-29T04:16:09.014Z',
+  id: '17222',
+  image: 'https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg',
+  name: 'A1',
+  nationality: '',
+  tags: [],
+  type: 'drink',
+}];
+
 const localStorageMock = (function () {
   let store = {};
 
@@ -74,7 +86,7 @@ describe('Favorite test', () => {
     act(() => history.push(favoriteString));
     const share = await screen.findByTestId('0-horizontal-share-btn');
     // O meu da erro mas talvez no seu rode a de baixo
-    // userEvent.click(share);
+    userEvent.click(share);
     const favoriteBtn = await screen.findByTestId('0-horizontal-favorite-btn');
     expect(favoriteBtn).toBeInTheDocument();
     expect(share).toBeInTheDocument();
@@ -89,5 +101,11 @@ describe('Favorite test', () => {
     const drinkFilter = screen.getByTestId('filter-by-drink-btn');
     userEvent.click(drinkFilter);
     userEvent.click(mealFilter);
+  });
+  it('Drink text', () => {
+    renderWithRouter(<App />);
+    const { history } = renderWithRouter(<App />);
+    setLocalStorage('favoriteRecipes', drinkStorage);
+    act(() => history.push(favoriteString));
   });
 });

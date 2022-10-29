@@ -1,4 +1,3 @@
-import clipboardCopy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -18,9 +17,8 @@ function DoneRecipes({ history }) {
   }, []);
 
   const handleShare = (type, id) => {
-    console.log(id);
-    clipboardCopy(`http://localhost:3000/${type}s/${id}`);
     setLinkCopied(true);
+    navigator.clipboard.writeText(`${window.location.origin}/${type}s/${id}`);
   };
 
   return (
@@ -96,7 +94,7 @@ function DoneRecipes({ history }) {
                   />
                 </button>
                 {
-                  linkCopied && <p>Link copied!</p>
+                  linkCopied && <p data-testid="copied-msg">Link copied!</p>
                 }
                 <ul>
                   {
