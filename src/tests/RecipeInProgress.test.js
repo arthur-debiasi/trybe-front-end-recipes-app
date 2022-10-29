@@ -4,8 +4,6 @@ import { act } from 'react-dom/test-utils';
 import meals from '../../cypress/mocks/meals';
 import App from '../App';
 import renderWithRouter from './helpers/renderWith';
-import oneMeal from '../../cypress/mocks/oneMeal';
-import oneDrinkId15997 from '../../cypress/mocks/oneDrinkId15997';
 
 describe('Testa RecipeDetails', () => {
   it('simula interação de usuário', async () => {
