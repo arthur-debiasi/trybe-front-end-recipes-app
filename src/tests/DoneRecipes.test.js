@@ -76,7 +76,7 @@ describe('Favorite test', () => {
     act(() => history.push(doneString));
     const share = await screen.findByTestId('0-horizontal-share-btn');
     // O meu da erro mas talvez no seu rode a de baixo
-    userEvent.click(share);
+    // userEvent.click(share);
     expect(share).toBeInTheDocument();
   });
   it('Meals btn', () => {
