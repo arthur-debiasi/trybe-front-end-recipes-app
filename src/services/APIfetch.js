@@ -32,7 +32,6 @@ export const fetchByFirstLetter = async (firstLetter, type) => {
 };
 
 export const fetchRecipesByType = async (type) => {
-  console.log(type);
   const urlType = type === 'meals' ? 'themealdb' : 'thecocktaildb';
   try {
     const response = await fetch(`https://www.${urlType}.com/api/json/v1/1/search.php?s=`);
