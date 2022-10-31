@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import Button from '@mui/material/Button';
-import { RadioGroup, FormControlLabel, Radio } from '@mui/material';
+import { RadioGroup, FormControlLabel, Radio, Paper, Card } from '@mui/material';
+import { Stack } from 'react-bootstrap';
 import MyContext from '../context/MyContext';
 import RecipeContext from '../context/RecipeContext';
 import { fetchIngredient, fetchByFirstLetter, fetchByName } from '../services/APIfetch';
@@ -63,10 +64,10 @@ function SearchBar({ history }) {
     }
   };
   return (
-    <div>
+    <Stack>
       <RadioGroup row name="search">
         <FormControlLabel
-        label='Ingredient'
+          label="Ingredient"
           control={ <Radio /> }
           onChange={ radioChangeSearch }
           value="ingredient"
@@ -75,7 +76,7 @@ function SearchBar({ history }) {
           type="radio"
         />
         <FormControlLabel
-        label='Name'
+          label="Name"
           control={ <Radio /> }
           onChange={ radioChangeSearch }
           value="name"
@@ -85,7 +86,7 @@ function SearchBar({ history }) {
         />
 
         <FormControlLabel
-        label='First letter'
+          label="First letter"
           control={ <Radio /> }
           onChange={ radioChangeSearch }
           value="first letter"
@@ -95,15 +96,15 @@ function SearchBar({ history }) {
         />
       </RadioGroup>
       <Button
-        variant='outlined'
+        variant="outlined"
         onClick={ searchButtonAPI }
         data-testid="exec-search-btn"
-        type="button"
+        size="large"
       >
         Busca
 
       </Button>
-    </div>
+    </Stack>
   );
 }
 

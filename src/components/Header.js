@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import { TextField } from '@mui/material';
+import { TextField, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -44,36 +43,41 @@ function Header(props) {
     setInputSearch(target.value);
   };
 
+  const handleProfileBtn = () => {
+    history.push('/profile');
+  };
+
   return (
     <div>
-      <h1 data-testid="page-title">{finalTitle}</h1>
-      <Stack direction="row" spacing={ 2 }>
-        <Link to="/profile">
-          <Button variant="contained" size="small">
+      <Stack direction="row" justifyContent="space-around">
+
+        <Typography variant="h2" data-testid="page-title">{finalTitle}</Typography>
+        <Stack direction="row" spacing={ 2 }>
+          <Button variant="contained" size="small" fullWidth onClick={ handleProfileBtn }>
             <img
               src={ profileIcon }
               data-testid="profile-top-btn"
               alt="profile"
             />
-
           </Button>
-        </Link>
-        {
-          trueFalse() && (
-            <Button
-              variant="contained"
-              size="small"
-              onClick={ () => setVisibleInput(!visibleInput) }
-              type="button"
-            >
-              <img
-                src={ searchIcon }
-                data-testid="search-top-btn"
-                alt="busca"
-              />
-            </Button>
-          )
-        }
+          {
+            trueFalse() && (
+              <Button
+                variant="contained"
+                fullWidth
+                size="small"
+                onClick={ () => setVisibleInput(!visibleInput) }
+                type="button"
+              >
+                <img
+                  src={ searchIcon }
+                  data-testid="search-top-btn"
+                  alt="busca"
+                />
+              </Button>
+            )
+          }
+        </Stack>
       </Stack>
       {
         visibleInput && <TextField
