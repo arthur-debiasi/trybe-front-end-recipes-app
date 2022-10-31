@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Grid } from '@mui/material';
+import { Button } from '@mui/material';
+import { Stack } from 'react-bootstrap';
 import { fetchByCategory,
   fetchRecipesByCategory, fetchRecipesByType } from '../services/APIfetch';
 import RecipeContext from '../context/RecipeContext';
@@ -32,7 +33,7 @@ function TagsForFilters({ history }) {
     setToggle(!toggle);
   };
   return (
-    <Grid justifyContent="space-around" container spacing={ 0 }>
+    <Stack className='buttons-filters'>
       {
         fetchCategory.slice(0, cinco).map((e, index) => (
           <Button
@@ -50,6 +51,7 @@ function TagsForFilters({ history }) {
           </Button>))
       }
       <Button
+        size="small"
         variant="contained"
         onClick={ fetchAndSetRecipes }
         data-testid="All-category-filter"
@@ -57,7 +59,7 @@ function TagsForFilters({ history }) {
       >
         All
       </Button>
-    </Grid>
+    </Stack>
   );
 }
 

@@ -63,6 +63,7 @@ function Header(props) {
           {
             trueFalse() && (
               <Button
+              margin='dense'
                 variant="contained"
                 fullWidth
                 size="small"

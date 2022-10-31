@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import Button from '@mui/material/Button';
-import { RadioGroup, FormControlLabel, Radio, Paper, Card } from '@mui/material';
+import { RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { Stack } from 'react-bootstrap';
 import MyContext from '../context/MyContext';
 import RecipeContext from '../context/RecipeContext';
@@ -65,45 +65,47 @@ function SearchBar({ history }) {
   };
   return (
     <Stack>
-      <RadioGroup row name="search">
-        <FormControlLabel
-          label="Ingredient"
-          control={ <Radio /> }
-          onChange={ radioChangeSearch }
-          value="ingredient"
-          name="search"
-          data-testid="ingredient-search-radio"
-          type="radio"
-        />
-        <FormControlLabel
-          label="Name"
-          control={ <Radio /> }
-          onChange={ radioChangeSearch }
-          value="name"
-          name="search"
-          data-testid="name-search-radio"
-          type="radio"
-        />
+      <div className='card-radio'>
+        <RadioGroup column name="search">
+          <FormControlLabel
+            label="Ingredient"
+            control={ <Radio /> }
+            onChange={ radioChangeSearch }
+            value="ingredient"
+            name="search"
+            data-testid="ingredient-search-radio"
+            type="radio"
+          />
+          <FormControlLabel
+            label="Name"
+            control={ <Radio /> }
+            onChange={ radioChangeSearch }
+            value="name"
+            name="search"
+            data-testid="name-search-radio"
+            type="radio"
+          />
 
-        <FormControlLabel
-          label="First letter"
-          control={ <Radio /> }
-          onChange={ radioChangeSearch }
-          value="first letter"
-          name="search"
-          data-testid="first-letter-search-radio"
-          type="radio"
-        />
-      </RadioGroup>
-      <Button
-        variant="outlined"
-        onClick={ searchButtonAPI }
-        data-testid="exec-search-btn"
-        size="large"
-      >
-        Busca
+          <FormControlLabel
+            label="First letter"
+            control={ <Radio /> }
+            onChange={ radioChangeSearch }
+            value="first letter"
+            name="search"
+            data-testid="first-letter-search-radio"
+            type="radio"
+          />
+        </RadioGroup>
+        <Button
+          variant="outlined"
+          onClick={ searchButtonAPI }
+          data-testid="exec-search-btn"
+          size="large"
+        >
+          Busca
 
-      </Button>
+        </Button>
+      </div>
     </Stack>
   );
 }
