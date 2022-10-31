@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 // import MyContext from '../context/MyContext';
 import { Link } from 'react-router-dom';
+import { Card, Typography } from '@mui/material';
 import RecipeContext from '../context/RecipeContext';
 
 export default function CardRecipes({ history }) {
@@ -13,19 +14,34 @@ export default function CardRecipes({ history }) {
   const info = type === 'drinks' ? 'Drink' : 'Meal';
 
   return (
-    <div>
+    <div className="geral-recipes">
       {
         arrayRecipes.map((element, index) => (
-          <Link to={ `/${type}/${element[`id${info}`]}` } key={ element[`id${info}`] }>
-            <div data-testid={ `${index}-recipe-card` }>
+          <Card
+            key={ index }
+            className="card-recipes"
+            sx={ { maxWidth: 345,
+              marginBottom: '1em',
+              padding: '1em',
+              borderRadius: '10px' } }
+            data-testid={ `${index}-recipe-card` }
+          >
+            <Link to={ `/${type}/${element[`id${info}`]}` } key={ element[`id${info}`] }>
               <img
+                width="250"
                 data-testid={ `${index}-card-img` }
                 src={ element[`str${info}Thumb`] }
                 alt={ element[`str${info}`] }
               />
-              <p data-testid={ `${index}-card-name` }>{element[`str${info}`]}</p>
-            </div>
-          </Link>
+            </Link>
+            <Typography
+              variant="h5"
+              data-testid={ `${index}-card-name` }
+            >
+              {element[`str${info}`]}
+
+            </Typography>
+          </Card>
         ))
       }
     </div>

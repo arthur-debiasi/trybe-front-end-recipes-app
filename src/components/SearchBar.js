@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
+import Button from '@mui/material/Button';
+import { RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import MyContext from '../context/MyContext';
 import RecipeContext from '../context/RecipeContext';
 import { fetchIngredient, fetchByFirstLetter, fetchByName } from '../services/APIfetch';
@@ -61,40 +63,46 @@ function SearchBar({ history }) {
     }
   };
   return (
-
     <div>
-      <input
-        onChange={ radioChangeSearch }
-        value="ingredient"
-        name="search"
-        data-testid="ingredient-search-radio"
-        type="radio"
-      />
-      Ingredient
-      <input
-        onChange={ radioChangeSearch }
-        value="name"
-        name="search"
-        data-testid="name-search-radio"
-        type="radio"
-      />
-      Name
-      <input
-        onChange={ radioChangeSearch }
-        value="first letter"
-        name="search"
-        data-testid="first-letter-search-radio"
-        type="radio"
-      />
-      First letter
-      <button
+      <RadioGroup row name="search">
+        <FormControlLabel
+        label='Ingredient'
+          control={ <Radio /> }
+          onChange={ radioChangeSearch }
+          value="ingredient"
+          name="search"
+          data-testid="ingredient-search-radio"
+          type="radio"
+        />
+        <FormControlLabel
+        label='Name'
+          control={ <Radio /> }
+          onChange={ radioChangeSearch }
+          value="name"
+          name="search"
+          data-testid="name-search-radio"
+          type="radio"
+        />
+
+        <FormControlLabel
+        label='First letter'
+          control={ <Radio /> }
+          onChange={ radioChangeSearch }
+          value="first letter"
+          name="search"
+          data-testid="first-letter-search-radio"
+          type="radio"
+        />
+      </RadioGroup>
+      <Button
+        variant='outlined'
         onClick={ searchButtonAPI }
         data-testid="exec-search-btn"
         type="button"
       >
         Busca
 
-      </button>
+      </Button>
     </div>
   );
 }

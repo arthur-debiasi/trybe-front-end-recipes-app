@@ -1,0 +1,20 @@
+/* stylelint-disable linebreaks */
+.card-recipes {
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 100vw;
+}
+
+.geral-recipes {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-recipes img {
+  margin: 0 auto;
+}
+

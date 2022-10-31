@@ -1,3 +1,4 @@
+/* stylelint-disable linebreaks */
 .meals {
   align-items: center;
   background: #0fa36b;
@@ -10,10 +11,6 @@
   width: 100%;
 }
 
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
-}
 
 /*
 #iceLeft {

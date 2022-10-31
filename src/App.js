@@ -8,9 +8,11 @@ import RecipeInProgress from './pages/RecipeInProgress';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import './App.css';
 
 function App() {
   return (
+
     <MyProvider>
       <Switch>
         <Route exact path="/" component={ Login } />
@@ -25,6 +27,7 @@ function App() {
         <Route path="/favorite-recipes" component={ FavoriteRecipes } />
       </Switch>
     </MyProvider>
+
   );
 }
 

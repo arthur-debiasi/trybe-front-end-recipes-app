@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import CardRecipes from '../components/CardRecipes';
 import TagsForFilters from '../components/TagsForFilters';
 import RecipeProvider from '../context/RecipeProvider';
+import '../css/Recipes.css';
 
 function Recipes({ history }) {
   return (

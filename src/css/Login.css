@@ -1,0 +1,25 @@
+/* stylelint-disable linebreaks */
+
+/* stylelint-disable order/properties-alphabetical-order */
+form {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.paper-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+}
+
+input {
+  margin: 5px;
+  width: 20em;
+  padding: 8px;
+  border-radius: 8px;
+}
