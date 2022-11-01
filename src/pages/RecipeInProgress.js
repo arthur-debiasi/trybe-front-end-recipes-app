@@ -36,7 +36,7 @@ export default function RecipeInProgress({ history }) {
     setTrue(true);
   };
   const type = history.location.pathname.split('/')[1];
-  const idRecipe = pathname.split('/')[2];
+  const idRecipe = history.location.pathname.split('/')[2];
   const recipeKey = type === 'meals' ? 'idMeal' : 'idDrink';
   useEffect(() => {
     const getRecipe = async () => {
