@@ -122,10 +122,11 @@ function RecipeInProgress({ history }) {
       setIsFavorited(false);
     }
   };
-  console.log(recipe);
   // if (recipe.strTags) console.log(recipe.strTags.split(', '));
   const handleFinishbtn = () => {
-    const date = new Date();
+    const day = new Date().getUTCDate();
+    const month = new Date().getUTCMonth();
+    const year = new Date().getUTCFullYear();
     const doneRecipes = getLocalStorage('doneRecipes', []);
     const newDoneRecipes = [...doneRecipes, {
       id: recipe[recipeKey],
@@ -135,7 +136,7 @@ function RecipeInProgress({ history }) {
       alcoholicOrNot: recipe.strAlcoholic || '',
       name: recipe.strDrink || recipe.strMeal,
       image: recipe.strDrinkThumb || recipe.strMealThumb,
-      doneDate: date,
+      doneDate: `${day}/${month}/${year}`,
       tags: recipe.strTags ? recipe.strTags
         .split(',') : [],
     }];
