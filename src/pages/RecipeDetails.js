@@ -118,13 +118,13 @@ function RecipeDetails({ history }) {
     }
   };
   return (
-    <div>
+    <Stack display="collumn" alignItems="center" sx={ { margin: 2 / 100 } }>
       <Stack
         direction="row"
         justifyContent="space-around"
         alignItems="center"
       >
-        <h1 data-testid="recipe-details">RecipeDetails</h1>
+        <h1 data-testid="recipe-details">Recipe Details</h1>
         <Stack
           direction="row"
           spacing={ 2 }
@@ -193,8 +193,8 @@ function RecipeDetails({ history }) {
                <iframe
                  title={ recipe[0].strMeal || recipe[0].strDrink }
                  data-testid="video"
-                 width="420"
-                 height="315"
+                 width="350"
+                 height="300"
                  src={ `https://www.youtube.com/embed/${recipe[0].strYoutube.split('watch?v=')[1]}` }
                />
              )}
@@ -223,7 +223,7 @@ function RecipeDetails({ history }) {
       <div className="scrolling">
         <RecommendationCard />
       </div>
-    </div>
+    </Stack>
   );
 }
 
