@@ -1,3 +1,4 @@
+import { Card } from '@mui/material';
 import React, { useContext } from 'react';
 import MyContext from '../context/MyContext';
 
@@ -8,7 +9,8 @@ function RecommendationCard() {
     <div data-testid="div-card">
       {
         apiForType.slice(0, seis).map((e, index) => (
-          <div
+          <Card
+            sx={ { textAlign: 'center' } }
             className="card"
             key={ e.idMeal || e.idDrink }
             data-testid={ `${index}-recommendation-card` }
@@ -17,7 +19,7 @@ function RecommendationCard() {
               {e.strMeal || e.strDrink}
               {' '}
             </h2>
-          </div>))
+          </Card>))
       }
     </div>
   );

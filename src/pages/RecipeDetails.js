@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Divider, Stack } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import { fetchDetais, fetchGetTypeInvert } from '../services/APIfetch';
 import MyContext from '../context/MyContext';
 import RecommendationCard from '../components/RecommendationCard';
@@ -196,7 +195,7 @@ function RecipeDetails({ history }) {
                  data-testid="video"
                  width="420"
                  height="315"
-                 src={ `https://www.youtube.com/embed/${recipe[0].strYoutube.split('watch?v=')[1]}`}
+                 src={ `https://www.youtube.com/embed/${recipe[0].strYoutube.split('watch?v=')[1]}` }
                />
              )}
            </div>
@@ -204,19 +203,20 @@ function RecipeDetails({ history }) {
       }
       {
         !isRecipeDone && (
-          <Link to={ `/${typeMelsDrink}/${recipeId}/in-progress` }>
-            <button
-              className="startRecipe"
-              type="button"
-              data-testid="start-recipe-btn"
-            >
-              {
+          <Button
+            variant="contained"
+            color="secondary"
+            className="startRecipe"
+            type="button"
+            data-testid="start-recipe-btn"
+            onClick={ () => history.push(`/${typeMelsDrink}/${recipeId}/in-progress`) }
+          >
+            {
 
-                isInProgress ? 'Continue Recipe' : 'Start Recipe'
-              }
+              isInProgress ? 'Continue Recipe' : 'Start Recipe'
+            }
 
-            </button>
-          </Link>
+          </Button>
         )
 
       }
