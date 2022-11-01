@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect, useContext } from 'react';
 import clipboardCopy from 'clipboard-copy';
+import { Button, Checkbox, Divider, FormControlLabel,
+  Typography, Stack } from '@mui/material';
 import { fetchDetais, fetchGetTypeInvert, setLocalStorage,
   getLocalStorage } from '../services/APIfetch';
 import MyContext from '../context/MyContext';
@@ -11,7 +13,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../App.css';
 
-function RecipeInProgress({ history }) {
+export default function RecipeInProgress({ history }) {
   const [recipe, setRecipe] = useState({});
   const [trueFalse, setTrue] = useState(false);
   const [ingredients, setIngredients] = useState([]);
@@ -23,22 +25,18 @@ function RecipeInProgress({ history }) {
   const [isFavorited, setIsFavorited] = useState(false);
   const [checked, setChecked] = useState([]);
   const { setApiForType } = useContext(MyContext);
-
   const filtFunc = (meals) => {
-    const entries = Object.entries(meals);
-    const filteredIngredients = entries
+    const filteredIngredients = Object.entries(meals)
       .filter((e) => e[0].includes('strIngredient'))
       .filter((e) => e[1] !== '' && e[1] !== null);
-    const filteredMeasures = entries
+    const filteredMeasures = Object.entries(meals)
       .filter((e) => e[0].includes('strMeasure'));
     setIngredients(filteredIngredients);
     setMeasures(filteredMeasures);
     setTrue(true);
   };
-
-  const { pathname } = history.location;
-  const type = pathname.split('/')[1];
-  const idRecipe = pathname.split('/')[2];
+  const type = history.location.pathname.split('/')[1];
+  const idRecipe = history.location.pathname.split('/')[2];
   const recipeKey = type === 'meals' ? 'idMeal' : 'idDrink';
   useEffect(() => {
     const getRecipe = async () => {
@@ -47,15 +45,10 @@ function RecipeInProgress({ history }) {
       filtFunc(response[0]);
       setRecipeId(response[0][recipeKey]);
     };
-
-    const response = async () => {
-      const data = await fetchGetTypeInvert(type);
-      setApiForType(data);
-    };
+    const response = async () => setApiForType(await fetchGetTypeInvert(type));
     response();
     getRecipe();
-  }, [history.location.pathname, pathname, setApiForType, idRecipe, recipeKey, type]);
-
+  }, [history.location.pathname, setApiForType, idRecipe, recipeKey, type]);
   useEffect(() => {
     const doneRecipes = getLocalStorage('doneRecipes', []);
     const inProgressRecipes = getLocalStorage('inProgressRecipes', {
@@ -68,19 +61,16 @@ function RecipeInProgress({ history }) {
     setIsInProgress(Object.keys(isProgress).includes(recipeId));
     setIsRecipeDone(isDone);
   }, [isInProgress, recipe, recipeId, type]);
-
   useEffect(() => {
     const favoriteRecipes = localStorage.getItem('favoriteRecipes')
       ? JSON.parse(localStorage.getItem('favoriteRecipes')) : [];
     const isRecipeFavorited = favoriteRecipes.some((e) => e.id === recipeId);
     setIsFavorited(isRecipeFavorited);
   }, [recipeId]);
-
   const handleShare = () => {
     clipboardCopy(`http://localhost:3000/${type}/${recipeId}`);
     setIsCliped(true);
   };
-
   const handleIngredientClick = (i) => {
     let markedIngredients = [];
     if (checked.includes(i[1])) {
@@ -122,7 +112,6 @@ function RecipeInProgress({ history }) {
       setIsFavorited(false);
     }
   };
-  // if (recipe.strTags) console.log(recipe.strTags.split(', '));
   const handleFinishbtn = () => {
     const day = new Date().getUTCDate();
     const month = new Date().getUTCMonth();
@@ -140,65 +129,93 @@ function RecipeInProgress({ history }) {
       tags: recipe.strTags ? recipe.strTags
         .split(',') : [],
     }];
-    console.log(newDoneRecipes);
     setLocalStorage('doneRecipes', newDoneRecipes);
     history.push('/done-recipes');
   };
   return (
     <div>
-      <h1 data-testid="recipe-in-progress">Recipe in Progress</h1>
-      <button type="button" onClick={ handleShare } data-testid="share-btn">
-        <img src={ shareIcon } alt="share-link" />
-      </button>
-      {isCliped && 'Link copied!'}
-      <button type="button" onClick={ handleFavoriteBtn }>
-        <img
-          data-testid="favorite-btn"
-          src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
-          alt="favorite-link"
-        />
-      </button>
+      <Stack direction="row" justifyContent="space-around" alignItems="center">
+        <Typography
+          variant="h4"
+          data-testid="recipe-in-progress"
+        >
+          Recipe in Progress
+        </Typography>
+        <Stack direction="row" spacing={ 2 }>
+          <Button
+            variant="contained"
+            type="button"
+            onClick={ handleShare }
+            data-testid="share-btn"
+          >
+            <img src={ shareIcon } alt="share-link" />
+          </Button>
+          {isCliped && 'Link copied!'}
+          <Button
+            variant="contained"
+            type="button"
+            onClick={ handleFavoriteBtn }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
+              alt="favorite-link"
+            />
+          </Button>
+        </Stack>
+      </Stack>
       {
         trueFalse
          && (
            <div>
              <img
                data-testid="recipe-photo"
+               width="250px"
                src={ recipe.strMealThumb || recipe.strDrinkThumb }
                alt={ recipe.strMeal || recipe.strDrink }
              />
-             <h2
+             <Typography
+               variant="h3"
                data-testid="recipe-title"
              >
                { recipe.strMeal || recipe.strDrink }
-             </h2>
-             <p
+             </Typography>
+             <Typography
+               variant="h5"
                data-testid="recipe-category"
              >
                {recipe.strAlcoholic || recipe.strCategory }
-             </p>
-             <text data-testid="instructions">{recipe.strInstructions}</text>
+             </Typography>
+             <Divider />
+             <Typography
+               variant="p"
+               data-testid="instructions"
+             >
+               {recipe.strInstructions}
+             </Typography>
+             <Divider />
              <ul>
                { ingredients.map((i, index) => {
                  const isChecked = checked.some((e) => e === i[1]);
                  return (
-                   <li key={ i[1] }>
-                     <label
+                   <Stack key={ i[1] }>
+                     <FormControlLabel
                        htmlFor="ingredient"
                        data-testid={ `${index}-ingredient-step` }
                        className={ isChecked === true
                          ? 'finished'
                          : 'unfinished' }
-                     >
-                       <input
-                         type="checkbox"
-                         checked={ isChecked }
-                         name="ingredient"
-                         onClick={ () => handleIngredientClick(i) }
-                       />
-                       {`${i[1]} ${measures[index][1] || ''}`}
-                     </label>
-                   </li>
+                       label={ `${i[1]} ${measures[index][1] || ''}` }
+                       control={
+                         <Checkbox
+                           type="checkbox"
+                           checked={ isChecked }
+                           name="ingredient"
+                           onClick={ () => handleIngredientClick(i) }
+                         />
+                       }
+                     />
+                   </Stack>
                  );
                })}
              </ul>
@@ -206,17 +223,17 @@ function RecipeInProgress({ history }) {
                <iframe
                  title={ recipe.strMeal || recipe.strDrink }
                  data-testid="video"
-                 width="420"
-                 height="315"
-                 src={ recipe.strYoutube }
+                 width="350"
+                 height="300"
+                 src={ `https://www.youtube.com/embed/${recipe.strYoutube.split('watch?v=')[1]}` }
                />
              )}
            </div>
          )
       }
       { !isRecipeDone && (
-
-        <button
+        <Button
+          variant="contained"
           className="startRecipe"
           type="button"
           data-testid="finish-recipe-btn"
@@ -224,12 +241,12 @@ function RecipeInProgress({ history }) {
           onClick={ handleFinishbtn }
         >
           Finish
-        </button>
-
+        </Button>
       )}
-      <div className="scrolling"><RecommendationCard /></div>
+      <div className="scrolling">
+        <RecommendationCard type={ history.location.pathname.split('/')[1] } />
+      </div>
     </div>
   );
 }
 RecipeInProgress.propTypes = { history: PropTypes.shape }.isRequired;
-export default RecipeInProgress;
