@@ -12,7 +12,6 @@ import './App.css';
 
 function App() {
   return (
-
     <MyProvider>
       <Switch>
         <Route exact path="/" component={ Login } />
@@ -27,7 +26,6 @@ function App() {
         <Route path="/favorite-recipes" component={ FavoriteRecipes } />
       </Switch>
     </MyProvider>
-
   );
 }
 
