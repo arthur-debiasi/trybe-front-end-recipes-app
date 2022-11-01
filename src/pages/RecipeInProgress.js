@@ -113,7 +113,9 @@ export default function RecipeInProgress({ history }) {
     }
   };
   const handleFinishbtn = () => {
-    const date = new Date();
+    const day = new Date().getUTCDate();
+    const month = new Date().getUTCMonth();
+    const year = new Date().getUTCFullYear();
     const doneRecipes = getLocalStorage('doneRecipes', []);
     const newDoneRecipes = [...doneRecipes, {
       id: recipe[recipeKey],
@@ -123,7 +125,7 @@ export default function RecipeInProgress({ history }) {
       alcoholicOrNot: recipe.strAlcoholic || '',
       name: recipe.strDrink || recipe.strMeal,
       image: recipe.strDrinkThumb || recipe.strMealThumb,
-      doneDate: date,
+      doneDate: `${day}/${month}/${year}`,
       tags: recipe.strTags ? recipe.strTags
         .split(',') : [],
     }];

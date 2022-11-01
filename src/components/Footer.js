@@ -8,12 +8,12 @@ import './Footer.css';
 function Footer() {
   return (
     <footer data-testid="footer">
-      <Link className='btn-footer' to="/meals">
+      <Link className="btn-footer" to="/meals">
         <Button type="button" variant="contained">
           <img src={ mealIcon } alt="meal icon" data-testid="meals-bottom-btn" />
         </Button>
       </Link>
-      <Link className='btn-footer' to="/drinks">
+      <Link className="btn-footer" to="/drinks">
         <Button type="button" variant="contained">
           <img src={ drinkIcon } alt="drink icon" data-testid="drinks-bottom-btn" />
         </Button>
