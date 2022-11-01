@@ -1,0 +1,23 @@
+/* stylelint-disable linebreaks */
+.btns-profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btns-profile a {
+  margin: 10px;
+  text-decoration: none;
+}
+
+.btn-logout {
+  margin-top: 53%;
+  margin-left: 73%;
+}
+
+.email-profile {
+  text-align: center;
+  margin-top: 25%;
+  margin-bottom: 15%;
+}
