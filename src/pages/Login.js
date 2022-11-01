@@ -39,7 +39,7 @@ export default function Login() {
           label="Email"
           defaultValue="email@email.com"
           onChange={ handleChangeEmail }
-          type="text"
+          type="email"
           value={ email }
           data-testid="email-input"
         />

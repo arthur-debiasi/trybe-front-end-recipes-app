@@ -7,7 +7,7 @@ const themeOptions = {
   palette: {
     mode: 'dark',
     primary: {
-      main: '#0f0',
+      main: '#b71c1c',
     },
     background: {
       default: '#111111',

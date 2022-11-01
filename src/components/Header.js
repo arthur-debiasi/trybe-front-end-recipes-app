@@ -49,7 +49,7 @@ function Header(props) {
 
   return (
     <div>
-      <Stack direction="row" justifyContent="space-around">
+      <Stack direction="row" justifyContent="space-around" alignItems="center">
 
         <Typography variant="h2" data-testid="page-title">{finalTitle}</Typography>
         <Stack direction="row" spacing={ 2 }>
@@ -63,7 +63,7 @@ function Header(props) {
           {
             trueFalse() && (
               <Button
-              margin='dense'
+                margin="dense"
                 variant="contained"
                 fullWidth
                 size="small"

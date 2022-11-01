@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Button, Divider, Stack } from '@mui/material';
 import { fetchDetais, fetchGetTypeInvert } from '../services/APIfetch';
 import MyContext from '../context/MyContext';
 import RecommendationCard from '../components/RecommendationCard';
@@ -117,32 +118,44 @@ function RecipeDetails({ history }) {
       setIsFavorited(false);
     }
   };
-
   return (
     <div>
-      <h1 data-testid="recipe-details">RecipeDetails</h1>
-      <button
-        type="button"
-        onClick={ handleShare }
-        data-testid="share-btn"
+      <Stack
+        direction="row"
+        justifyContent="space-around"
+        alignItems="center"
       >
-        <img
-          src={ shareIcon }
-          alt="share-link"
-        />
-      </button>
-      {isCliped && 'Link copied!'}
-      <button
-        type="button"
-        onClick={ handleFavoriteBtn }
-      >
-        <img
-          data-testid="favorite-btn"
-          src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
-          alt="favorite-link"
-        />
+        <h1 data-testid="recipe-details">RecipeDetails</h1>
+        <Stack
+          direction="row"
+          spacing={ 2 }
+        >
+          <Button
+            variant="contained"
+            type="button"
+            onClick={ handleShare }
+            data-testid="share-btn"
+          >
+            <img
+              src={ shareIcon }
+              alt="share-link"
+            />
+          </Button>
+          {isCliped && 'Link copied!'}
+          <Button
+            variant="contained"
+            type="button"
+            onClick={ handleFavoriteBtn }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
+              alt="favorite-link"
+            />
 
-      </button>
+          </Button>
+        </Stack>
+      </Stack>
       {
         trueFalse
          && (
@@ -151,6 +164,7 @@ function RecipeDetails({ history }) {
                data-testid="recipe-photo"
                src={ recipe[0].strMealThumb || recipe[0].strDrinkThumb }
                alt={ recipe[0].strMeal || recipe[0].strDrink }
+               width="290"
              />
              <h2
                data-testid="recipe-title"
@@ -182,7 +196,7 @@ function RecipeDetails({ history }) {
                  data-testid="video"
                  width="420"
                  height="315"
-                 src={ recipe[0].strYoutube }
+                 src={ `https://www.youtube.com/embed/${recipe[0].strYoutube.split('watch?v=')[1]}`}
                />
              )}
            </div>
@@ -213,5 +227,5 @@ function RecipeDetails({ history }) {
   );
 }
 
-RecipeDetails.propTypes = { history: PropTypes.shape.isRequired };
+RecipeDetails.propTypes = { history: PropTypes.shape }.isRequired;
 export default RecipeDetails;
