@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import { Paper, TextField, Typography } from '@mui/material';
 import MyContext from '../context/MyContext';
 import '../css/Login.css';
+import logo from '../images/LOGORECIPES.png';
 
 export default function Login() {
   const [redirect, setRedirect] = useState(false);
@@ -30,7 +31,8 @@ export default function Login() {
 
   return (
     <form className="form-login">
-      <Typography gutterBottom variant="h3">Login</Typography>
+      <img src={ logo } alt="logo" width="350px" />
+      <Typography gutterBottom variant="h5">Login</Typography>
       <Paper className="paper-login" variant="outlined" elevation={ 3 }>
         <TextField
           margin="dense"

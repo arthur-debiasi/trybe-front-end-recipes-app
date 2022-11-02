@@ -8,6 +8,7 @@ import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import MyContext from '../context/MyContext';
 import '../css/Header.css';
+import logozinho from '../images/logozinho.png';
 
 function Header(props) {
   const [visibleInput, setVisibleInput] = useState(false);
@@ -50,7 +51,7 @@ function Header(props) {
   return (
     <div>
       <Stack direction="row" justifyContent="space-around" alignItems="center">
-
+        <img src={ logozinho } alt="logo" width={ 0.20 } />
         <Typography variant="h2" data-testid="page-title">{finalTitle}</Typography>
         <Stack direction="row" spacing={ 2 }>
           <Button variant="contained" size="small" fullWidth onClick={ handleProfileBtn }>
