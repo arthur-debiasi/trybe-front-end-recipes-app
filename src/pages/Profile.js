@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, Stack } from '@mui/material';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import RecipeProvider from '../context/RecipeProvider';
@@ -19,19 +19,21 @@ function Profile(props) {
   };
 
   return (
-    <div>
+    // <Stack  display='collumn' justifyContent='center' alignItems='center'>
+    <div className="aaa">
       <RecipeProvider history={ history }>
         <Header history={ history } />
       </RecipeProvider>
       <p
         data-testid="profile-email"
       >
-        {getUser ? <Typography className='email-profile' variant='h4'>{ getUser.email }</Typography> : 'Email não encontrado'}
+        {getUser ? <Typography sx={ { wordWrap: 'break-word', width: '100%', marginTop: '20%' } } className="email-profile" variant="h5">{ getUser.email }</Typography> : 'Email não encontrado'}
       </p>
 
-      <div className='btns-profile'>
+      <div className="btns-profile">
         <Link to="/done-recipes">
           <Button
+          sx={{ marginTop:'60%' }}
             variant="contained"
             size="medium"
             type="button"
@@ -52,19 +54,21 @@ function Profile(props) {
 
           </Button>
         </Link>
-        </div>
-        <Button
-        className='btn-logout'
-          variant="contained"
-          size="medium"
-          type="button"
-          data-testid="profile-logout-btn"
-          onClick={ handleLogout }
-        >
-          Logout
-        </Button>
+      </div>
+      <Button
+        className="btn-log"
+        sx={ { marginLeft: '70%', marginTop: '85%' } }
+        variant="contained"
+        size="medium"
+        type="button"
+        data-testid="profile-logout-btn"
+        onClick={ handleLogout }
+      >
+        Logout
+      </Button>
       <Footer />
     </div>
+    // </Stack>
   );
 }
 

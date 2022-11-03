@@ -92,7 +92,9 @@ function Header(props) {
         />
       }
 
-      <SearchBar history={ history } />
+      {
+        trueFalse() && <SearchBar history={ history } />
+      }
     </div>
 
   );

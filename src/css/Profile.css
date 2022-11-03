@@ -11,13 +11,16 @@
   text-decoration: none;
 }
 
-.btn-logout {
-  margin-top: 53%;
-  margin-left: 73%;
-}
-
 .email-profile {
   text-align: center;
   margin-top: 25%;
   margin-bottom: 15%;
+}
+
+.btn-log {
+  margin-left: 100%;
+}
+
+.aaa {
+  height: 100vh;
 }
