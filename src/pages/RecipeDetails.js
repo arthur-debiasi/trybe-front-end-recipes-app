@@ -120,7 +120,7 @@ function RecipeDetails({ history }) {
     }
   };
   return (
-    <Stack display="collumn" alignItems="center" sx={ { margin: 2 / 100 } }>
+    <Stack>
       <Stack
         direction="row"
         alignItems="center"
@@ -216,7 +216,7 @@ function RecipeDetails({ history }) {
         !isRecipeDone && (
           <Button
             variant="contained"
-            color="secondary"
+            color="primary"
             className="startRecipe"
             type="button"
             data-testid="start-recipe-btn"
