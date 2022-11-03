@@ -11,6 +11,7 @@ import './RecipesDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import logozinho from '../images/logozinho.png';
 import '../App.css';
 
 export default function RecipeInProgress({ history }) {
@@ -134,14 +135,22 @@ export default function RecipeInProgress({ history }) {
   };
   return (
     <div>
-      <Stack direction="row" justifyContent="space-around" alignItems="center">
+      <Stack
+        direction="row"
+        alignItems="center"
+        spacing={ 0.5 b}
+      >
+        <img src={ logozinho } alt="logo" width="80px" />
         <Typography
-          variant="h4"
+          variant="h5"
           data-testid="recipe-in-progress"
         >
           Recipe in Progress
         </Typography>
-        <Stack direction="row" spacing={ 2 }>
+        <Stack
+          direction="column"
+          spacing={ 1 }
+        >
           <Button
             variant="contained"
             type="button"

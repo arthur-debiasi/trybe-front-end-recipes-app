@@ -12,10 +12,11 @@ function RecommendationCard({ type }) {
 
         {`${type === 'meals' ? 'Drink' : 'Meal'} recomendations!`}
       </Typography>
-      <div data-testid="div-card">
+      <div data-testid="div-card" className="divCard">
         {
           apiForType.slice(0, seis).map((e, index) => (
             <Card
+              spacing={ 2 }
               sx={ { textAlign: 'center' } }
               className="card"
               key={ e.idMeal || e.idDrink }
