@@ -33,7 +33,7 @@ function TagsForFilters({ history }) {
     setToggle(!toggle);
   };
   return (
-    <Stack className='buttons-filters'>
+    <Stack className="buttons-filters">
       {
         fetchCategory.slice(0, cinco).map((e, index) => (
           <Button

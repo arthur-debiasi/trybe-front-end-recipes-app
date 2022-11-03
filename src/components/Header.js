@@ -91,9 +91,8 @@ function Header(props) {
           placeholder="Search"
         />
       }
-
       {
-        trueFalse() && <SearchBar history={ history } />
+        trueFalse() && (<SearchBar history={ history } />)
       }
     </div>
 
