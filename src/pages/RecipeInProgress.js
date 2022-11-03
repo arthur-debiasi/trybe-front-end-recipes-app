@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import clipboardCopy from 'clipboard-copy';
 import { Button, Checkbox, Divider, FormControlLabel,
   Typography, Stack } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { fetchDetais, fetchGetTypeInvert, setLocalStorage,
   getLocalStorage } from '../services/APIfetch';
 import MyContext from '../context/MyContext';
@@ -134,13 +135,15 @@ export default function RecipeInProgress({ history }) {
     history.push('/done-recipes');
   };
   return (
-    <div>
+    <Stack>
       <Stack
         direction="row"
         alignItems="center"
         spacing={ 0.5 }
       >
-        <img src={ logozinho } alt="logo" width="80px" />
+        <Link to="/meals">
+          <img src={ logozinho } alt="logo" width="80px" />
+        </Link>
         <Typography
           variant="h5"
           data-testid="recipe-in-progress"
@@ -149,7 +152,7 @@ export default function RecipeInProgress({ history }) {
         </Typography>
         <Stack
           direction="column"
-          spacing={ 0.5 }
+          spacing={ 0.2 }
         >
           <Button
             variant="contained"
@@ -159,7 +162,12 @@ export default function RecipeInProgress({ history }) {
           >
             <img src={ shareIcon } alt="share-link" />
           </Button>
-          {isCliped && 'Link copied!'}
+          <Typography
+            variant="p"
+            sx={ { fontSize: '0.8em' } }
+          >
+            {isCliped && 'Link copied!'}
+          </Typography>
           <Button
             variant="contained"
             type="button"
@@ -179,12 +187,12 @@ export default function RecipeInProgress({ history }) {
            <div>
              <img
                data-testid="recipe-photo"
-               width="250px"
+               width="350px"
                src={ recipe.strMealThumb || recipe.strDrinkThumb }
                alt={ recipe.strMeal || recipe.strDrink }
              />
              <Typography
-               variant="h3"
+               variant="h4"
                data-testid="recipe-title"
              >
                { recipe.strMeal || recipe.strDrink }
@@ -209,7 +217,7 @@ export default function RecipeInProgress({ history }) {
                  return (
                    <Stack key={ i[1] }>
                      <FormControlLabel
-                       htmlFor="ingredient"
+                       htmlFor={ `${index}-ingredient-step` }
                        data-testid={ `${index}-ingredient-step` }
                        className={ isChecked === true
                          ? 'finished'
@@ -219,6 +227,7 @@ export default function RecipeInProgress({ history }) {
                          <Checkbox
                            type="checkbox"
                            checked={ isChecked }
+                           id={ `${index}-ingredient-step` }
                            name="ingredient"
                            onClick={ () => handleIngredientClick(i) }
                          />
@@ -255,7 +264,7 @@ export default function RecipeInProgress({ history }) {
       <div className="scrolling">
         <RecommendationCard type={ history.location.pathname.split('/')[1] } />
       </div>
-    </div>
+    </Stack>
   );
 }
 RecipeInProgress.propTypes = { history: PropTypes.shape }.isRequired;

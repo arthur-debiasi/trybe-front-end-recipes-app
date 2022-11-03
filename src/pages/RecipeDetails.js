@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect, useContext } from 'react';
 import { Button, Stack, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { fetchDetais, fetchGetTypeInvert } from '../services/APIfetch';
 import MyContext from '../context/MyContext';
 import RecommendationCard from '../components/RecommendationCard';
@@ -125,11 +126,13 @@ function RecipeDetails({ history }) {
         alignItems="center"
         spacing={ 3 }
       >
-        <img src={ logozinho } alt="logo" width="80px" />
+        <Link to="/meals">
+          <img src={ logozinho } alt="logo" width="80px" />
+        </Link>
         <Typography variant="h5" data-testid="recipe-details">Recipe Details</Typography>
         <Stack
           direction="column"
-          spacing={ 1 }
+          spacing={ 0.2 }
         >
           <Button
             variant="contained"
@@ -170,13 +173,14 @@ function RecipeDetails({ history }) {
                data-testid="recipe-photo"
                src={ recipe[0].strMealThumb || recipe[0].strDrinkThumb }
                alt={ recipe[0].strMeal || recipe[0].strDrink }
-               width="290"
+               width="350"
              />
-             <h2
+             <Typography
+               variant="h4"
                data-testid="recipe-title"
              >
                { recipe[0].strMeal || recipe[0].strDrink }
-             </h2>
+             </Typography>
              <p
                data-testid="recipe-category"
              >

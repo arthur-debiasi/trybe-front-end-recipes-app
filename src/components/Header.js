@@ -3,6 +3,7 @@ import React, { useState, useContext } from 'react';
 import Button from '@mui/material/Button';
 import { TextField, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
+import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
@@ -51,8 +52,10 @@ function Header(props) {
   return (
     <div>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <img src={ logozinho } alt="logo" width="80px" />
-        <Typography variant="h2" data-testid="page-title">{finalTitle}</Typography>
+        <Link to="/meals">
+          <img src={ logozinho } alt="logo" width="80px" />
+        </Link>
+        <Typography variant="h5" data-testid="page-title">{finalTitle}</Typography>
         <Stack
           direction="collumn"
           alignItems="center"

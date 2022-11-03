@@ -9,15 +9,13 @@ function RecommendationCard({ type }) {
   return (
     <div>
       <Typography variant="h5">
-
         {`${type === 'meals' ? 'Drink' : 'Meal'} recomendations!`}
       </Typography>
       <div data-testid="div-card" className="divCard">
         {
           apiForType.slice(0, seis).map((e, index) => (
             <Card
-              spacing={ 2 }
-              sx={ { textAlign: 'center' } }
+              sx={ { textAlign: 'center', width: '174px', marginRight: '2px' } }
               className="card"
               key={ e.idMeal || e.idDrink }
               data-testid={ `${index}-recommendation-card` }

@@ -31,15 +31,14 @@ export default function Login() {
 
   return (
     <form className="form-login">
-      <img src={ logo } alt="logo" width="350px" />
+      <img src={ logo } alt="logo" width="340px" />
       <Typography gutterBottom variant="h5">Login</Typography>
-      <Paper className="paper-login" variant="outlined" elevation={ 3 }>
+      <Paper className="paper-login" elevation={ 5 }>
         <TextField
           margin="dense"
           required
           id="outlined-required"
           label="Email"
-          defaultValue="email@email.com"
           onChange={ handleChangeEmail }
           type="email"
           value={ email }
@@ -50,7 +49,6 @@ export default function Login() {
           required
           id="outlined-required"
           label="Password"
-          defaultValue="Digite sua senha"
           onChange={ handleChangePassWord }
           value={ password }
           type="password"
