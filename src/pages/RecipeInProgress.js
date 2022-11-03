@@ -139,6 +139,7 @@ export default function RecipeInProgress({ history }) {
       <Stack
         direction="row"
         alignItems="center"
+        justifyContent="space-between"
         spacing={ 0.5 }
       >
         <Link to="/meals">
@@ -146,6 +147,8 @@ export default function RecipeInProgress({ history }) {
         </Link>
         <Typography
           variant="h5"
+          textAlign="center"
+          fontSize="1.4em"
           data-testid="recipe-in-progress"
         >
           Recipe in Progress

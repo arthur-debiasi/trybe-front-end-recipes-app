@@ -124,7 +124,8 @@ function RecipeDetails({ history }) {
       <Stack
         direction="row"
         alignItems="center"
-        spacing={ 3 }
+        justifyContent="space-between"
+        spacing={ 0.5 }
       >
         <Link to="/meals">
           <img src={ logozinho } alt="logo" width="80px" />
