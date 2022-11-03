@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect, useContext } from 'react';
-import { Button, Stack } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { fetchDetais, fetchGetTypeInvert } from '../services/APIfetch';
 import MyContext from '../context/MyContext';
 import RecommendationCard from '../components/RecommendationCard';
@@ -8,6 +9,7 @@ import './RecipesDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import logozinho from '../images/logozinho.png';
 
 function RecipeDetails({ history }) {
   const [recipe, setRecipe] = useState({});
@@ -118,16 +120,20 @@ function RecipeDetails({ history }) {
     }
   };
   return (
-    <Stack display="collumn" alignItems="center" sx={ { margin: 2 / 100 } }>
+    <Stack>
       <Stack
         direction="row"
-        justifyContent="space-around"
         alignItems="center"
+        justifyContent="space-between"
+        spacing={ 0.5 }
       >
-        <h1 data-testid="recipe-details">Recipe Details</h1>
+        <Link to="/meals">
+          <img src={ logozinho } alt="logo" width="80px" />
+        </Link>
+        <Typography variant="h5" data-testid="recipe-details">Recipe Details</Typography>
         <Stack
-          direction="row"
-          spacing={ 2 }
+          direction="column"
+          spacing={ 0.2 }
         >
           <Button
             variant="contained"
@@ -140,7 +146,12 @@ function RecipeDetails({ history }) {
               alt="share-link"
             />
           </Button>
-          {isCliped && 'Link copied!'}
+          <Typography
+            variant="p"
+            sx={ { fontSize: '0.8em' } }
+          >
+            {isCliped && 'Link copied!'}
+          </Typography>
           <Button
             variant="contained"
             type="button"
@@ -163,13 +174,14 @@ function RecipeDetails({ history }) {
                data-testid="recipe-photo"
                src={ recipe[0].strMealThumb || recipe[0].strDrinkThumb }
                alt={ recipe[0].strMeal || recipe[0].strDrink }
-               width="290"
+               width="350"
              />
-             <h2
+             <Typography
+               variant="h4"
                data-testid="recipe-title"
              >
                { recipe[0].strMeal || recipe[0].strDrink }
-             </h2>
+             </Typography>
              <p
                data-testid="recipe-category"
              >
@@ -205,7 +217,7 @@ function RecipeDetails({ history }) {
         !isRecipeDone && (
           <Button
             variant="contained"
-            color="secondary"
+            color="primary"
             className="startRecipe"
             type="button"
             data-testid="start-recipe-btn"

@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import clipboardCopy from 'clipboard-copy';
 import { Button, Checkbox, Divider, FormControlLabel,
   Typography, Stack } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { fetchDetais, fetchGetTypeInvert, setLocalStorage,
   getLocalStorage } from '../services/APIfetch';
 import MyContext from '../context/MyContext';
@@ -11,6 +12,7 @@ import './RecipesDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import logozinho from '../images/logozinho.png';
 import '../App.css';
 
 export default function RecipeInProgress({ history }) {
@@ -133,15 +135,28 @@ export default function RecipeInProgress({ history }) {
     history.push('/done-recipes');
   };
   return (
-    <div>
-      <Stack direction="row" justifyContent="space-around" alignItems="center">
+    <Stack>
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        spacing={ 0.5 }
+      >
+        <Link to="/meals">
+          <img src={ logozinho } alt="logo" width="80px" />
+        </Link>
         <Typography
-          variant="h4"
+          variant="h5"
+          textAlign="center"
+          fontSize="1.4em"
           data-testid="recipe-in-progress"
         >
           Recipe in Progress
         </Typography>
-        <Stack direction="row" spacing={ 2 }>
+        <Stack
+          direction="column"
+          spacing={ 0.2 }
+        >
           <Button
             variant="contained"
             type="button"
@@ -150,7 +165,12 @@ export default function RecipeInProgress({ history }) {
           >
             <img src={ shareIcon } alt="share-link" />
           </Button>
-          {isCliped && 'Link copied!'}
+          <Typography
+            variant="p"
+            sx={ { fontSize: '0.8em' } }
+          >
+            {isCliped && 'Link copied!'}
+          </Typography>
           <Button
             variant="contained"
             type="button"
@@ -170,12 +190,12 @@ export default function RecipeInProgress({ history }) {
            <div>
              <img
                data-testid="recipe-photo"
-               width="250px"
+               width="350px"
                src={ recipe.strMealThumb || recipe.strDrinkThumb }
                alt={ recipe.strMeal || recipe.strDrink }
              />
              <Typography
-               variant="h3"
+               variant="h4"
                data-testid="recipe-title"
              >
                { recipe.strMeal || recipe.strDrink }
@@ -200,7 +220,7 @@ export default function RecipeInProgress({ history }) {
                  return (
                    <Stack key={ i[1] }>
                      <FormControlLabel
-                       htmlFor="ingredient"
+                       htmlFor={ `${index}-ingredient-step` }
                        data-testid={ `${index}-ingredient-step` }
                        className={ isChecked === true
                          ? 'finished'
@@ -210,6 +230,7 @@ export default function RecipeInProgress({ history }) {
                          <Checkbox
                            type="checkbox"
                            checked={ isChecked }
+                           id={ `${index}-ingredient-step` }
                            name="ingredient"
                            onClick={ () => handleIngredientClick(i) }
                          />
@@ -246,7 +267,7 @@ export default function RecipeInProgress({ history }) {
       <div className="scrolling">
         <RecommendationCard type={ history.location.pathname.split('/')[1] } />
       </div>
-    </div>
+    </Stack>
   );
 }
 RecipeInProgress.propTypes = { history: PropTypes.shape }.isRequired;

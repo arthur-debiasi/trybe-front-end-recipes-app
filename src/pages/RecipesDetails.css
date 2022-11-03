@@ -3,15 +3,25 @@
   overflow-y: hidden;
   white-space: nowrap;
   width: 100%;
+  display: flex;
+  flex-direction: row;
 }
 
 .card {
   display: inline-block;
   margin-left: 3em;
-  width: 33%;
+  /* width: 25%; */
 }
 
 .startRecipe {
   bottom: 0;
   position: fixed;
+}
+
+.divCard {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.8em;
 }

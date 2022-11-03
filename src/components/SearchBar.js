@@ -66,7 +66,7 @@ function SearchBar({ history }) {
   return (
     <Stack>
       <div className="card-radio">
-        <RadioGroup column name="search">
+        <RadioGroup row name="search">
           <FormControlLabel
             label="Ingredient"
             control={ <Radio /> }

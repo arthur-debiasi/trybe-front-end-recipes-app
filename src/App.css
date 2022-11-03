@@ -1,7 +1,9 @@
 /* stylelint-disable linebreaks */
 #root {
-  margin-left: 2%
+  margin-left: 2%;
+  margin-right: 2%;
 }
+
 .meals {
   align-items: center;
   background: #0fa36b;
