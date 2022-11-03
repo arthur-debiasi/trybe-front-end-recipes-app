@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import { Paper, TextField, Typography } from '@mui/material';
 import MyContext from '../context/MyContext';
 import '../css/Login.css';
-import logo from '../images/LOGORECIPES.png';
+import logo from '../images/LOGORECIPES2.png';
 
 export default function Login() {
   const [redirect, setRedirect] = useState(false);

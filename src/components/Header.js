@@ -50,10 +50,20 @@ function Header(props) {
 
   return (
     <div>
-      <Stack direction="row" justifyContent="space-around" alignItems="center">
-        <img src={ logozinho } alt="logo" width={ 0.20 } />
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <img src={ logozinho } alt="logo" width="80px" />
         <Typography variant="h2" data-testid="page-title">{finalTitle}</Typography>
-        <Stack direction="row" spacing={ 2 }>
+        <Stack
+          direction="collumn"
+          alignItems="center"
+          justifyContent="center"
+          flexWrap="wrap"
+          spacing={ 2 }
+          width="60px"
+          sx={ { height: '80px', flexWrap: 'wrap' } }
+          marginRight="5px"
+          marginTop="5px"
+        >
           <Button variant="contained" size="small" fullWidth onClick={ handleProfileBtn }>
             <img
               src={ profileIcon }

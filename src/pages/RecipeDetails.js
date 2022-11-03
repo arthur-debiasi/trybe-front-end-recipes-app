@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect, useContext } from 'react';
-import { Button, Stack } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { fetchDetais, fetchGetTypeInvert } from '../services/APIfetch';
 import MyContext from '../context/MyContext';
 import RecommendationCard from '../components/RecommendationCard';
@@ -8,6 +8,7 @@ import './RecipesDetails.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import logozinho from '../images/logozinho.png';
 
 function RecipeDetails({ history }) {
   const [recipe, setRecipe] = useState({});
@@ -121,13 +122,14 @@ function RecipeDetails({ history }) {
     <Stack display="collumn" alignItems="center" sx={ { margin: 2 / 100 } }>
       <Stack
         direction="row"
-        justifyContent="space-around"
         alignItems="center"
+        spacing={ 3 }
       >
-        <h1 data-testid="recipe-details">Recipe Details</h1>
+        <img src={ logozinho } alt="logo" width="80px" />
+        <Typography variant="h5" data-testid="recipe-details">Recipe Details</Typography>
         <Stack
-          direction="row"
-          spacing={ 2 }
+          direction="column"
+          spacing={ 1 }
         >
           <Button
             variant="contained"
@@ -140,7 +142,12 @@ function RecipeDetails({ history }) {
               alt="share-link"
             />
           </Button>
-          {isCliped && 'Link copied!'}
+          <Typography
+            variant="p"
+            sx={ { fontSize: '0.8em' } }
+          >
+            {isCliped && 'Link copied!'}
+          </Typography>
           <Button
             variant="contained"
             type="button"

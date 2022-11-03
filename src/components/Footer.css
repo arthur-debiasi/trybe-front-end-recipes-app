@@ -1,8 +1,8 @@
 /* stylelint-disable linebreaks */
 footer {
   bottom: 5px;
-  position: fixed;
   margin-left: 5px;
+  position: fixed;
 }
 
 .btn-footer {
