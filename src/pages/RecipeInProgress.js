@@ -138,7 +138,7 @@ export default function RecipeInProgress({ history }) {
       <Stack
         direction="row"
         alignItems="center"
-        spacing={ 0.5 b}
+        spacing={ 0.5 }
       >
         <img src={ logozinho } alt="logo" width="80px" />
         <Typography
@@ -149,7 +149,7 @@ export default function RecipeInProgress({ history }) {
         </Typography>
         <Stack
           direction="column"
-          spacing={ 1 }
+          spacing={ 0.5 }
         >
           <Button
             variant="contained"
