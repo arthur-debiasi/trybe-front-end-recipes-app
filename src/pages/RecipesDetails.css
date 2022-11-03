@@ -2,13 +2,13 @@
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
-  width: 100%;
+  width: 50%;
 }
 
 .card {
   display: inline-block;
   margin-left: 3em;
-  width: 33%;
+  width: 25%;
 }
 
 .startRecipe {
