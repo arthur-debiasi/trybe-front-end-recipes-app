@@ -27,13 +27,27 @@ function Profile(props) {
       <p
         data-testid="profile-email"
       >
-        {getUser ? <Typography sx={ { wordWrap: 'break-word', width: '100%', marginTop: '20%' } } className="email-profile" variant="h5">{ getUser.email }</Typography> : 'Email não encontrado'}
-      </p>
+        {getUser
+          ? (
+            <Typography
+              sx={ { wordWrap: 'break-word', width: '100%', marginTop: '20%' } }
+              className="email-profile"
+              variant="h5"
+            >
+              { getUser.email }
 
-      <div className="btns-profile">
+            </Typography>) : 'Email não encontrado'}
+      </p>
+      <Stack
+        className="btns-profile"
+        spacing={ 2 }
+        sx={ { marginTop: '60px' } }
+        direction="column"
+        justifyContent="space-around"
+        alignItems="space-around"
+      >
         <Link to="/done-recipes">
           <Button
-          sx={{ marginTop:'60%' }}
             variant="contained"
             size="medium"
             type="button"
@@ -51,21 +65,20 @@ function Profile(props) {
             data-testid="profile-favorite-btn"
           >
             Favorite Recipes
-
           </Button>
         </Link>
-      </div>
-      <Button
-        className="btn-log"
-        sx={ { marginLeft: '70%', marginTop: '85%' } }
-        variant="contained"
-        size="medium"
-        type="button"
-        data-testid="profile-logout-btn"
-        onClick={ handleLogout }
-      >
-        Logout
-      </Button>
+        <Button
+          className="btn-log"
+          variant="contained"
+          color='warning'
+          size="large"
+          type="button"
+          data-testid="profile-logout-btn"
+          onClick={ handleLogout }
+        >
+          Logout
+        </Button>
+      </Stack>
       <Footer />
     </div>
     // </Stack>

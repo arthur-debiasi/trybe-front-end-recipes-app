@@ -3,6 +3,8 @@ footer {
   bottom: 5px;
   margin-left: 5px;
   margin-bottom: 7px;
+  position: fixed;
+  margin-bottom: 0;
 }
 
 .btn-footer {

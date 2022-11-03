@@ -182,11 +182,12 @@ function RecipeDetails({ history }) {
              >
                { recipe[0].strMeal || recipe[0].strDrink }
              </Typography>
-             <p
+             <Typography
+               variant="h5"
                data-testid="recipe-category"
              >
                {recipe[0].strAlcoholic || recipe[0].strCategory }
-             </p>
+             </Typography>
              <text data-testid="instructions">{recipe[0].strInstructions}</text>
              <ul>
                {
@@ -233,7 +234,7 @@ function RecipeDetails({ history }) {
 
       }
       <div className="scrolling">
-        <RecommendationCard />
+        <RecommendationCard type={ history.location.pathname.split('/')[1] } />
       </div>
     </Stack>
   );

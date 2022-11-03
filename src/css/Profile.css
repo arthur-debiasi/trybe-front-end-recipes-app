@@ -7,7 +7,7 @@
 }
 
 .btns-profile a {
-  margin: 10px;
+  /* margin: 10px; */
   text-decoration: none;
 }
 
@@ -17,9 +17,9 @@
   margin-bottom: 15%;
 }
 
-.btn-log {
+/* .btn-log {
   margin-left: 100%;
-}
+} */
 
 .aaa {
   height: 100vh;
