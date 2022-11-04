@@ -225,7 +225,7 @@ export default function RecipeInProgress({ history }) {
                        className={ isChecked === true
                          ? 'finished'
                          : 'unfinished' }
-                       label={ `${i[1]} ${measures[index][1] || ''}` }
+                       label={ `${i[1]} - ${measures[index][1] || ''}` }
                        control={
                          <Checkbox
                            type="checkbox"

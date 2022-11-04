@@ -196,7 +196,7 @@ function RecipeDetails({ history }) {
                      key={ i[1] }
                      data-testid={ `${index}-ingredient-name-and-measure` }
                    >
-                     {`${i[1]} ${measures[index][1] || ''}`}
+                     {`${i[1]} - ${measures[index][1] || ''}`}
 
                    </li>
                  ))
