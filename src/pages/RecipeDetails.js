@@ -150,7 +150,9 @@ function RecipeDetails({ history }) {
             variant="p"
             sx={ { fontSize: '0.8em' } }
           >
-            {isCliped && 'Link copied!'}
+            {isCliped && (
+              <Button size="small" onClick={ () => setIsCliped(false) }>Link copied!</Button>
+            )}
           </Typography>
           <Button
             variant="contained"
