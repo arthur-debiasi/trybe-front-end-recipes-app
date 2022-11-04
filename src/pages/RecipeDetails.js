@@ -151,7 +151,12 @@ function RecipeDetails({ history }) {
             sx={ { fontSize: '0.8em' } }
           >
             {isCliped && (
-              <Button size="small" onClick={ () => setIsCliped(false) }>Link copied!</Button>
+              <Button
+                size="small"
+                onClick={ () => setIsCliped(false) }
+              >
+                Link copied!
+              </Button>
             )}
           </Typography>
           <Button
