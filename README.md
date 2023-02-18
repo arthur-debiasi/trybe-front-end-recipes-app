@@ -53,3 +53,4 @@ Esse projeto está sob licença. Veja o arquivo [LICENÇA](LICENSE.md) para mais
 [React-url]: https://reactjs.org/
 [MUI]: https://img.shields.io/badge/material_ui-007FFF?style=for-the-badge&logo=mui&logoColor=white
 [MUI-url]: https://img.shields.io/badge/material_ui-007FFF?style=for-the-badge&logo=mui&logoColor=white
+
