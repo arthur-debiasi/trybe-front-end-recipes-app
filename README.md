@@ -1,4 +1,4 @@
-# [Trybe](https://www.betrybe.com/) Project - [Recipes React App](http://comes-e-bebes.vercel.app/).
+# [Trybe](https://www.betrybe.com/) Project - [Recipes React App](https://recipes-app-debiasi.vercel.app/).
 
 ## 💻 Project
 React App for drinks and meals recipes, using React Hooks and Context API for state management. It's possible to visualize, search, filter, favorite, share and save progress of meals and drinks recipes!
