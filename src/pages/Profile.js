@@ -70,7 +70,7 @@ function Profile(props) {
         <Button
           className="btn-log"
           variant="contained"
-          color='warning'
+          color="warning"
           size="large"
           type="button"
           data-testid="profile-logout-btn"

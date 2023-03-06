@@ -37,7 +37,6 @@ export default function Login() {
         <TextField
           margin="dense"
           required
-          id="outlined-required"
           label="Email"
           onChange={ handleChangeEmail }
           type="email"
@@ -47,7 +46,6 @@ export default function Login() {
         <TextField
           margin="dense"
           required
-          id="outlined-required"
           label="Password"
           onChange={ handleChangePassWord }
           value={ password }

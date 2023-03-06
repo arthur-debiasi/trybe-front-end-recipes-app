@@ -131,39 +131,23 @@ function RecipeDetails({ history }) {
           <img src={ logozinho } alt="logo" width="80px" />
         </Link>
         <Typography variant="h5" data-testid="recipe-details">Recipe Details</Typography>
-        <Stack
-          direction="column"
-          spacing={ 0.2 }
-        >
+        <Stack direction="column" spacing={ 0.2 }>
           <Button
             variant="contained"
             type="button"
             onClick={ handleShare }
             data-testid="share-btn"
           >
-            <img
-              src={ shareIcon }
-              alt="share-link"
-            />
+            <img src={ shareIcon } alt="share-link" />
           </Button>
-          <Typography
-            variant="p"
-            sx={ { fontSize: '0.8em' } }
-          >
+          <Typography variant="p" sx={ { fontSize: '0.8em' } }>
             {isCliped && (
-              <Button
-                size="small"
-                onClick={ () => setIsCliped(false) }
-              >
+              <Button size="small" onClick={ () => setIsCliped(false) }>
                 Link copied!
               </Button>
             )}
           </Typography>
-          <Button
-            variant="contained"
-            type="button"
-            onClick={ handleFavoriteBtn }
-          >
+          <Button variant="contained" type="button" onClick={ handleFavoriteBtn }>
             <img
               data-testid="favorite-btn"
               src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
@@ -183,16 +167,10 @@ function RecipeDetails({ history }) {
                alt={ recipe[0].strMeal || recipe[0].strDrink }
                width="350"
              />
-             <Typography
-               variant="h4"
-               data-testid="recipe-title"
-             >
+             <Typography variant="h4" data-testid="recipe-title">
                { recipe[0].strMeal || recipe[0].strDrink }
              </Typography>
-             <Typography
-               variant="h5"
-               data-testid="recipe-category"
-             >
+             <Typography variant="h5" data-testid="recipe-category">
                {recipe[0].strAlcoholic || recipe[0].strCategory }
              </Typography>
              <text data-testid="instructions">{recipe[0].strInstructions}</text>
@@ -204,7 +182,6 @@ function RecipeDetails({ history }) {
                      data-testid={ `${index}-ingredient-name-and-measure` }
                    >
                      {`${i[1]} - ${measures[index][1] || ''}`}
-
                    </li>
                  ))
                }
