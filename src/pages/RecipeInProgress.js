@@ -77,9 +77,7 @@ export default function RecipeInProgress({ history }) {
     let markedIngredients = [];
     if (checked.includes(i[1])) {
       markedIngredients = checked.filter((e) => e !== i[1]);
-    } else {
-      markedIngredients = [...checked, i[1]];
-    }
+    } else { markedIngredients = [...checked, i[1]]; }
     setChecked(markedIngredients);
     const actualInProgress = getLocalStorage('inProgressRecipes', {
       drinks: {}, meals: {},
@@ -142,9 +140,7 @@ export default function RecipeInProgress({ history }) {
         justifyContent="space-between"
         spacing={ 0.5 }
       >
-        <Link to="/meals">
-          <img src={ logozinho } alt="logo" width="80px" />
-        </Link>
+        <Link to="/meals"><img src={ logozinho } alt="logo" width="80px" /></Link>
         <Typography
           variant="h5"
           textAlign="center"
@@ -153,10 +149,7 @@ export default function RecipeInProgress({ history }) {
         >
           Recipe in Progress
         </Typography>
-        <Stack
-          direction="column"
-          spacing={ 0.2 }
-        >
+        <Stack direction="column" spacing={ 0.2 }>
           <Button
             variant="contained"
             type="button"
@@ -165,17 +158,10 @@ export default function RecipeInProgress({ history }) {
           >
             <img src={ shareIcon } alt="share-link" />
           </Button>
-          <Typography
-            variant="p"
-            sx={ { fontSize: '0.8em' } }
-          >
+          <Typography variant="p" sx={ { fontSize: '0.8em' } }>
             {isCliped && 'Link copied!'}
           </Typography>
-          <Button
-            variant="contained"
-            type="button"
-            onClick={ handleFavoriteBtn }
-          >
+          <Button variant="contained" type="button" onClick={ handleFavoriteBtn }>
             <img
               data-testid="favorite-btn"
               src={ isFavorited ? blackHeartIcon : whiteHeartIcon }
@@ -194,23 +180,14 @@ export default function RecipeInProgress({ history }) {
                src={ recipe.strMealThumb || recipe.strDrinkThumb }
                alt={ recipe.strMeal || recipe.strDrink }
              />
-             <Typography
-               variant="h4"
-               data-testid="recipe-title"
-             >
+             <Typography variant="h4" data-testid="recipe-title">
                { recipe.strMeal || recipe.strDrink }
              </Typography>
-             <Typography
-               variant="h5"
-               data-testid="recipe-category"
-             >
+             <Typography variant="h5" data-testid="recipe-category">
                {recipe.strAlcoholic || recipe.strCategory }
              </Typography>
              <Divider />
-             <Typography
-               variant="p"
-               data-testid="instructions"
-             >
+             <Typography variant="p" data-testid="instructions">
                {recipe.strInstructions}
              </Typography>
              <Divider />
