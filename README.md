@@ -18,6 +18,7 @@ This App layout is focused on mobile, with smaller screen.
 - React state management with Context API;
 - React Hooks: useState, useContext, useEffect and Custom Hooks;
 - Props and PropType validation;
+- Creating automated tests for a good testing coverage.
 
 ## Getting Started
 
