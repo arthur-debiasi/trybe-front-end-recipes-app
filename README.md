@@ -10,7 +10,7 @@ This App layout is focused on mobile, with smaller screen.
 
 ## 🚀 Built With
 
-> [![Javascript][Javascript]][Javascript-url][![React][React.js]][React-url][![MUI][MUI]][MUI-url]
+> [![Javascript][Javascript]][Javascript-url][![React][React.js]][React-url][![MUI][MUI]][MUI-url][![React Testing Library][TestingLibrary]][TestingLibrary-url]
 
 
 ## 📌 Skills
@@ -54,4 +54,5 @@ Esse projeto está sob licença. Veja o arquivo [LICENÇA](LICENSE.md) para mais
 [React-url]: https://reactjs.org/
 [MUI]: https://img.shields.io/badge/material_ui-007FFF?style=for-the-badge&logo=mui&logoColor=white
 [MUI-url]: https://img.shields.io/badge/material_ui-007FFF?style=for-the-badge&logo=mui&logoColor=white
-
+[TestingLibrary]: https://img.shields.io/badge/React_Testing_Library-20232A?style=for-the-badge&logo=testinglibrary&logoColor=E33332
+[TestingLibrary-url]: https://testing-library.com/docs/react-testing-library/intro/
